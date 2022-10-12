@@ -1,0 +1,21 @@
+
+.loginSignup-box{
+    width:400px;
+ }
+
+
+@media only screen and (max-width: 480px) {
+    .loginSignup-box{
+       width:260px;
+    }
+    
+}
+
+@media only screen and (min-width: 481px)and (max-width: 1024px)  {
+
+    .loginSignup-box{
+        width:340px
+     }
+ 
+}
+
