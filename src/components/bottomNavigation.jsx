@@ -4,7 +4,7 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import ChatIcon from "@mui/icons-material/Chat";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+import WhatshotIcon from '@mui/icons-material/Whatshot';
 export const BottomBar = () => {
   const [value, setValue] = React.useState("Home");
 
@@ -29,7 +29,7 @@ export const BottomBar = () => {
         />
         <BottomNavigationAction
           value="folder"
-          icon={<AddCircleIcon fontSize="large" />}
+          icon={<WhatshotIcon fontSize="large" />}
         />
         <BottomNavigationAction
           value="ChatIcon"

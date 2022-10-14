@@ -138,7 +138,7 @@ export const Navbar = () => {
                   aria-label="show 4 new mails"
                   color="inherit"
                 >
-                  <Badge b color="error">
+                  <Badge  color="error">
                     <TravelExploreIcon fontSize="large" />
                   </Badge>
                 </IconButton>

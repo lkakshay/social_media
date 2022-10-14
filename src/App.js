@@ -9,7 +9,6 @@ function App() {
 
 
   const authstatus = useSelector((state) => state.authReducer.authStatus);
-  console.log(authstatus)
   return (
     <React.Fragment>
       {authstatus?<Navbar/>:<></>}
