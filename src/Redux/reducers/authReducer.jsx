@@ -32,7 +32,7 @@ const createAuthData = createAsyncThunk("api/register", async (data) => {
 const authInfoSlice = createSlice({
   name: "auth",
   initialState: {
-    authStatus: false,
+    authStatus: true,
     userData: {},
     isLoading: false,
     isError: false,
