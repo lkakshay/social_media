@@ -50,8 +50,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
+    border:'.1px solid grey',
     [theme.breakpoints.up("md")]: {
-      width: "20ch",
+      width: "100%",
     },
   },
 }));
@@ -91,7 +92,7 @@ export const Navbar = () => {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
     </Menu>
   );
 
@@ -101,7 +102,7 @@ export const Navbar = () => {
     <div className="navbar">
       <div className="navbar-inner-container">
         <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static">
+          <AppBar color="transparent" sx={{boxShadow:'none'}} position="static">
             <Toolbar>
               <IconButton
                 size="large"
@@ -113,12 +114,12 @@ export const Navbar = () => {
                 <FeedOutlinedIcon fontSize="large"/>
               </IconButton>
               <Typography
-                variant="h6"
+                variant="h5"
                 noWrap
                 component="div"
-                sx={{ display: { xs: "none", sm: "block" } }}
+                sx={{ display: { xs: "none", sm: "block" },fontWeight:900 }}
               >
-                MUI
+                VOGUE
               </Typography>
               <Search>
                 <SearchIconWrapper>
@@ -127,6 +128,7 @@ export const Navbar = () => {
                 <StyledInputBase
                   placeholder="Search…"
                   inputProps={{ "aria-label": "search" }}
+                  sx={{width:'100%'}}
                 />
               </Search>
               <Box sx={{ flexGrow: 1 }} />
