@@ -3,8 +3,8 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
-import ChatIcon from "@mui/icons-material/Chat";
 import WhatshotIcon from '@mui/icons-material/Whatshot';
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 export const BottomBar = () => {
   const [value, setValue] = React.useState("Home");
 
@@ -33,7 +33,7 @@ export const BottomBar = () => {
         />
         <BottomNavigationAction
           value="ChatIcon"
-          icon={<ChatIcon fontSize="large" />}
+          icon={<AccountCircleRoundedIcon fontSize="large" />}
         />
       </BottomNavigation>
     </div>

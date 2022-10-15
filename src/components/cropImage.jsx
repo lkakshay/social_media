@@ -43,7 +43,7 @@ export const CropImage = ({ img, data, setData, setCropState, setImg }) => {
         image={src}
         crop={crop}
         zoom={1}
-        aspect={4 / 3}
+        aspect={16/9}
         onCropChange={setCrop}
         onCropComplete={onCropComplete}
       />

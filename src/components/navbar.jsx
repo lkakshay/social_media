@@ -7,8 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
+
 
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -50,7 +49,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
-    border:'.1px solid grey',
+    border: ".1px solid grey",
     [theme.breakpoints.up("md")]: {
       width: "100%",
     },
@@ -58,51 +57,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export const Navbar = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-
-  const isMenuOpen = Boolean(anchorEl);
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
- 
-
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
-    </Menu>
-  );
-
-  
-
   return (
     <div className="navbar">
       <div className="navbar-inner-container">
         <Box sx={{ flexGrow: 1 }}>
-          <AppBar color="transparent" sx={{boxShadow:'none'}} position="static">
+          <AppBar
+            color="transparent"
+            sx={{ boxShadow: "none" }}
+            position="static"
+          >
             <Toolbar>
               <IconButton
                 size="large"
@@ -111,13 +74,13 @@ export const Navbar = () => {
                 aria-label="open drawer"
                 sx={{ mr: 2 }}
               >
-                <FeedOutlinedIcon fontSize="large"/>
+                <FeedOutlinedIcon fontSize="large" />
               </IconButton>
               <Typography
                 variant="h5"
                 noWrap
                 component="div"
-                sx={{ display: { xs: "none", sm: "block" },fontWeight:900 }}
+                sx={{ display: { xs: "none", sm: "block" }, fontWeight: 900 }}
               >
                 VOGUE
               </Typography>
@@ -128,7 +91,7 @@ export const Navbar = () => {
                 <StyledInputBase
                   placeholder="Search…"
                   inputProps={{ "aria-label": "search" }}
-                  sx={{width:'100%'}}
+                  sx={{ width: "100%" }}
                 />
               </Search>
               <Box sx={{ flexGrow: 1 }} />
@@ -138,7 +101,7 @@ export const Navbar = () => {
                   aria-label="show 4 new mails"
                   color="inherit"
                 >
-                  <Badge  color="error">
+                  <Badge color="error">
                     <TravelExploreIcon fontSize="large" />
                   </Badge>
                 </IconButton>
@@ -155,19 +118,14 @@ export const Navbar = () => {
                   size="large"
                   edge="end"
                   aria-label="account of current user"
-                  aria-controls={menuId}
                   aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
                   color="inherit"
                 >
                   <AccountCircle fontSize="large" />
                 </IconButton>
               </Box>
-              
             </Toolbar>
           </AppBar>
-         
-          {renderMenu}
         </Box>
       </div>
     </div>

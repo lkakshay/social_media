@@ -1,18 +1,34 @@
 .home-find {
   display: none;
-
 }
-.home-feed{
+.home-feed {
   width: 100%;
+  margin-top: 70px;
 }
 
+.post {
+  /* border: 1px solid rgb(0, 0, 0); */
+}
+
+.post-header {
+  margin-bottom: 0px;
+}
+.post-image {
+  aspect-ratio: 16/9;
+  padding: 5px;
+}
+.post-card {
+  border-bottom: 0.01px solid black;
+}
 
 @media only screen and (max-width: 480px) {
   
 }
 
 @media only screen and (min-width: 481px) and (max-width: 1024px) {
-  
+  .post-image {
+    padding: 10px;
+  }
 }
 
 @media only screen and (min-width: 1025px) {
@@ -22,7 +38,7 @@
   }
 
   .home-inner-container {
-    width:1024px;
+    width: 1024px;
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
@@ -30,50 +46,63 @@
 
   .home-find {
     display: block;
-    width: 35%;
-    border: .1px solid black
+    width: 38%;
+    border: 0.1px solid black;
   }
-  .home-feed{
-    width: 63%;
-    
+  .home-feed {
+    width: 60%;
+    margin-top: 0px;
   }
-  .addpost{
-    border: .1px solid black;
-    padding: 10px 14px;  
+  .addpost {
+    border: 0.1px solid black;
+    padding: 10px 14px;
   }
-  .addpost-show{
+  .addpost-show {
     display: flex;
     justify-content: space-between;
   }
-  .crop-container{
-    position: absolute;
+  .crop-container {
+    position: relative;
     border: 1px solid black;
-    width: 600px;
+    width: 100%;
     height: 360px;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 210px;
+
+    margin-top: 10px;
     background: black;
   }
-  .crop-actions{
+  .crop-actions {
     position: relative;
-    margin-top: 370px;
-    background-color: white;
+
+    background-color: black;
+    padding-left: 27%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid black;
   }
-  .post-image img{
-    width: 120px;
-    height: 80px;
+  .post-image img {
+    width: 124px;
+    height: 70px;
     margin-top: 10px;
   }
-  .addpost-preview{
+  .addpost-preview {
     display: flex;
     justify-content: space-between;
   }
-  .addpost-actions{
+  .addpost-actions {
     position: relative;
   }
- 
+  .feed {
+    padding-top: 20px;
+  }
+  .post-image {
+    padding: 15px;
+  }
+
+  .post-card {
+    border: none;
+    margin-bottom: 20px;
+  }
+  .home-header-sm-md {
+    display: none;
+  }
 }

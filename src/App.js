@@ -4,17 +4,16 @@ import { MainRoutes } from "./routes/mainRoute";
 import { BottomBar } from "./components/bottomNavigation";
 import { Navbar } from "./components/navbar";
 import { useSelector } from "react-redux";
-
+import { ThemeWrap } from "./routes/themeWraper";
 function App() {
-
-
   const authstatus = useSelector((state) => state.authReducer.authStatus);
   return (
     <React.Fragment>
-      {authstatus?<Navbar/>:<></>}
-      <MainRoutes />
-      {authstatus? <BottomBar />:<></>}
-     
+      <ThemeWrap>
+        {authstatus ? <Navbar /> : <></>}
+        <MainRoutes />
+        {authstatus ? <BottomBar /> : <></>}
+      </ThemeWrap>
     </React.Fragment>
   );
 }
