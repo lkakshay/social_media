@@ -6,8 +6,9 @@ import IconButton from "@mui/material/IconButton";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import ChatIcon from "@mui/icons-material/Chat";
 import Badge from "@mui/material/Badge";
-
+import { useNavigate } from "react-router-dom";
 export const HomeHeaderSmallScreen = () => {
+  const navigate=useNavigate()
   return (
     <div className="home-header-sm-md">
       <Box sx={{ flexGrow: 1 }}>
@@ -25,6 +26,7 @@ export const HomeHeaderSmallScreen = () => {
                 size="large"
                 color="white"
                 aria-label="open drawer"
+                onClick={()=>navigate('/addpost')}
               >
                 <AddCircleOutlineRoundedIcon fontSize="large" />
               </IconButton>
