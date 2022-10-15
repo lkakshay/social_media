@@ -14,6 +14,7 @@ const theme = createTheme({
     black1: {
       main: "#191919",
     },
+    
   },
 });
 
