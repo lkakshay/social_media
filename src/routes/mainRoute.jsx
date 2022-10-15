@@ -12,7 +12,7 @@ export const MainRoutes=()=>{
             <Route path="/loginsignup"   element={<LoginSignup/>} />
             <Route path="/addpost"   element={<AddpostMobile/>} />
             <Route path="/profile"   element={<Profile/>} />
-            
+
         </Routes>
     )
 }
