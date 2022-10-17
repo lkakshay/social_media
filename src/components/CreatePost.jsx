@@ -7,7 +7,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 
-export const Addpost = () => {
+export const CreatePost = () => {
   const [data, setData] = useState({ content: "", image: null });
   const [img, setImg] = useState();
   const [cropState, setCropState] = useState(false);
@@ -18,8 +18,7 @@ export const Addpost = () => {
   const handlePost = () => {};
 
   const validate = () => {
-    if (data.content.length > 0) 
-    return setPostStatus(true);
+    if (data.content.length > 0) return setPostStatus(true);
     if (data.image !== null) {
       setPreview(true);
       setPostStatus(true);
@@ -48,7 +47,7 @@ export const Addpost = () => {
     <div className="addpost">
       <div className="addpost-show">
         <TextField
-        value={data.content}
+          value={data.content}
           fullWidth
           multiline
           size="small"

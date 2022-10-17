@@ -7,13 +7,12 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
-
-
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import ChatIcon from "@mui/icons-material/Chat";
+import { Container } from "@mui/system";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -45,7 +44,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -58,76 +56,74 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export const Navbar = () => {
   return (
-    <div className="navbar">
-      <div className="navbar-inner-container">
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar
-            color="transparent"
-            sx={{ boxShadow: "none" }}
-            position="static"
-          >
-            <Toolbar>
+    <Container className="navbar">
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar
+          color="transparent"
+          sx={{ boxShadow: "none" }}
+          position="static"
+        >
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              sx={{ mr: 2 }}
+            >
+              <FeedOutlinedIcon fontSize="large" />
+            </IconButton>
+            <Typography
+              variant="h5"
+              noWrap
+              component="div"
+              sx={{ display: { xs: "none", sm: "block" }, fontWeight: 900 }}
+            >
+              PINION
+            </Typography>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+                sx={{ width: "100%" }}
+              />
+            </Search>
+            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <IconButton
                 size="large"
-                edge="start"
+                aria-label="show 4 new mails"
                 color="inherit"
-                aria-label="open drawer"
-                sx={{ mr: 2 }}
               >
-                <FeedOutlinedIcon fontSize="large" />
+                <Badge color="error">
+                  <TravelExploreIcon fontSize="large" />
+                </Badge>
               </IconButton>
-              <Typography
-                variant="h5"
-                noWrap
-                component="div"
-                sx={{ display: { xs: "none", sm: "block" }, fontWeight: 900 }}
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
               >
-                PINION
-              </Typography>
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ "aria-label": "search" }}
-                  sx={{ width: "100%" }}
-                />
-              </Search>
-              <Box sx={{ flexGrow: 1 }} />
-              <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                <IconButton
-                  size="large"
-                  aria-label="show 4 new mails"
-                  color="inherit"
-                >
-                  <Badge color="error">
-                    <TravelExploreIcon fontSize="large" />
-                  </Badge>
-                </IconButton>
-                <IconButton
-                  size="large"
-                  aria-label="show 17 new notifications"
-                  color="inherit"
-                >
-                  <Badge badgeContent={17} color="error">
-                    <ChatIcon fontSize="large" />
-                  </Badge>
-                </IconButton>
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-haspopup="true"
-                  color="inherit"
-                >
-                  <AccountCircle fontSize="large" />
-                </IconButton>
-              </Box>
-            </Toolbar>
-          </AppBar>
-        </Box>
-      </div>
-    </div>
+                <Badge badgeContent={17} color="error">
+                  <ChatIcon fontSize="large" />
+                </Badge>
+              </IconButton>
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-haspopup="true"
+                color="inherit"
+              >
+                <AccountCircle fontSize="large" />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
+      </Box>
+    </Container>
   );
 };

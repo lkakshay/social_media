@@ -1,6 +1,6 @@
 import "./profile.css";
 import { Box } from "@mui/system";
-import { Addpost } from "../components/addPost";
+import { CreatePost } from "../components/CreatePost";
 import { Feed } from "../components/PostView";
 import { Bio } from "../components/bio";
 import { HomeHeaderSmallScreen } from "../components/HomebarMobile";
@@ -15,7 +15,7 @@ export const Profile = () => {
             <Bio />
           </div>
 
-          <Addpost />
+          <CreatePost />
           <Feed />
         </Box>
         <Box className="profile-find">
