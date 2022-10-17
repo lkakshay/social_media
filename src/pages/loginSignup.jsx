@@ -97,9 +97,7 @@ export const LoginSignup = () => {
     left: "50%",
     transform: "translate(-50%, -50%)",
     bgcolor: "white",
-    boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
     p: 4,
-    borderRadius: "1%",
   };
 
 
@@ -118,12 +116,12 @@ export const LoginSignup = () => {
                   English(USA)
                 </Typography>
                 <Typography
-                  sx={{ mt: 1, fontWeight: "600", color: "#00081c" }}
-                  variant='h4'
+                  sx={{ mt: 1, fontWeight: "600", color: "#191919" ,fontStyle:'italic'}}
+                  variant='h5'
                   component="h1"
                 >
-                  Sign up to vogue
-                </Typography>
+                  Sign up to <span className='loginSignup-heading' >PINION</span>
+                </Typography>  
                 <Box sx={{ display: "flex" }}>
                   <Typography variant="h6" sx={{ mt: 2 }}>
                     Already a member?
@@ -147,11 +145,11 @@ export const LoginSignup = () => {
                   }}
                 >
                   <TextField
-                    label="Name"
+                    label="Username"
                     type="text"
                     fullWidth
                     onChange={(e) =>
-                      setSingnUpData({ ...signUpData, name: e.target.value })
+                      setSingnUpData({ ...signUpData, username: e.target.value })
                     }
                   />
                   <TextField
@@ -194,7 +192,7 @@ export const LoginSignup = () => {
 
                 <Button
                   onClick={handleSignUp}
-                  sx={{ mt: 3, mb: 3, backgroundColor: "#00081c" }}
+                  sx={{ mt: 3, mb: 3, backgroundColor: "#191919" }}
                   color={!signUpvalidation.error?"success":'error'}
                   variant="contained"
                   fullWidth
@@ -210,12 +208,12 @@ export const LoginSignup = () => {
                 </Typography>
 
                 <Typography
-                  sx={{ mt: 1, fontWeight: "600", color: "#00081c" }}
-                  variant='h4'
+                  sx={{ mt: 1, fontWeight: "600", color: "#191919" ,fontStyle:'italic'}}
+                  variant='h5'
                   component="h1"
                 >
-                  Log in to vogue
-                </Typography>
+                  Log in to <span className='loginSignup-heading' >PINION</span>
+                </Typography>  
                 <Box sx={{ display: "flex" }}>
                   <Typography variant="h6" sx={{ mt: 2 }}>
                     New user?
@@ -276,7 +274,7 @@ export const LoginSignup = () => {
                 )}
 
                 <Button
-                  sx={{ mt: 3, mb: 3, backgroundColor: "#00081c" }}
+                  sx={{ mt: 3, mb: 3, backgroundColor: "#191919" }}
                   color={!loginValidation.error?"success":'error'}
                   variant="contained"
                   fullWidth

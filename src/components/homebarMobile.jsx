@@ -18,7 +18,7 @@ export const HomeHeaderSmallScreen = () => {
           position="fixed"
         >
           <Toolbar>
-            <h2 style={{ fontWeight: 900, color: "white" }}>VOGUE</h2>
+            <h2 style={{ fontWeight: 900, color: "white" }}>PINION</h2>
             <Box sx={{ flexGrow: 1 }} />
             <Box>
               <IconButton

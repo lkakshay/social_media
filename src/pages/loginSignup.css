@@ -2,11 +2,15 @@
 .loginSignup-box{
     width:400px;
  }
-
+.loginSignup-heading{
+    font-style: normal;
+    margin-left: 5px;
+    font-weight: 900;
+}
 
 @media only screen and (max-width: 480px) {
     .loginSignup-box{
-       width:260px;
+       width:100%;
     }
     
 }

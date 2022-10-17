@@ -5,9 +5,8 @@
   width: 100%;
   margin-top: 70px;
 }
- .bio {
+.bio {
   border-bottom: 1px solid black;
-
 }
 
 .bio-inner {
@@ -47,9 +46,8 @@
   width: 100%;
   border-radius: 50%;
   aspect-ratio: 1;
- 
 }
-.bio-edit-actions{
+.bio-edit-actions {
   display: flex;
   justify-content: center;
   padding-top: 10px;
@@ -83,7 +81,7 @@
     margin-top: 0px;
   }
 
-  .profile-mibile-bio{
+  .profile-mibile-bio {
     display: none;
   }
   .bio {
@@ -100,6 +98,4 @@
   .bio-image-div {
     padding-top: 20px;
   }
-
-
 }

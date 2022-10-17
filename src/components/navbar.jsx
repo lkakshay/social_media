@@ -82,7 +82,7 @@ export const Navbar = () => {
                 component="div"
                 sx={{ display: { xs: "none", sm: "block" }, fontWeight: 900 }}
               >
-                VOGUE
+                PINION
               </Typography>
               <Search>
                 <SearchIconWrapper>
