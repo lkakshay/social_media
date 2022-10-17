@@ -5,7 +5,7 @@ import { TextField, IconButton } from "@mui/material";
 import { useState } from "react";
 
 export const Bio = () => {
-  const [editStatus, setEditStatus] = useState(true);
+  const [editStatus, setEditStatus] = useState(false);
   const [edit, setEdit] = useState({});
   return (
     <div className="bio">

@@ -5,14 +5,12 @@ import { AddpostMobile } from "../components/addpostMobile"
 import { Profile } from "../pages/profile"
 
 export const MainRoutes=()=>{
-
     return(
         <Routes>
             <Route path="/"   element={<Home/>} />
             <Route path="/loginsignup"   element={<LoginSignup/>} />
             <Route path="/addpost"   element={<AddpostMobile/>} />
-            <Route path="/profile"   element={<Profile/>} />
-
+            <Route path="/profile/:username"   element={<Profile/>} />
         </Routes>
     )
 }

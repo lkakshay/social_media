@@ -4,7 +4,7 @@ import { MainRoutes } from "./routes/mainRoute";
 import { BottomBar } from "./components/bottomNavigation";
 import { Navbar } from "./components/navbar";
 import { useSelector } from "react-redux";
-import { ThemeWrap } from "./routes/themeWraper";
+import { ThemeWrap } from "./utils/themeWraper";
 function App() {
   const authstatus = useSelector((state) => state.authReducer.authStatus);
   return (
