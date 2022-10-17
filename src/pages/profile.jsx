@@ -1,9 +1,9 @@
 import "./profile.css";
 import { Box } from "@mui/system";
 import { Addpost } from "../components/addPost";
-import { Feed } from "../components/feee";
+import { Feed } from "../components/PostView";
 import { Bio } from "../components/bio";
-import { HomeHeaderSmallScreen } from "../components/homebarMobile";
+import { HomeHeaderSmallScreen } from "../components/HomebarMobile";
 
 export const Profile = () => {
   return (

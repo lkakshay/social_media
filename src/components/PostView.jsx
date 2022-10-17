@@ -1,6 +1,5 @@
 
-
-import { Post } from "./post"
+import { Post } from "./PostCard"
 export const Feed=()=>{
     let array=[1,2,3,4,]
     return (
