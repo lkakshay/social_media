@@ -13,6 +13,7 @@ import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import ChatIcon from "@mui/icons-material/Chat";
 import { Container } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -24,9 +25,9 @@ const Search = styled("div")(({ theme }) => ({
   marginRight: theme.spacing(2),
   marginLeft: 0,
   width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(15),
-    width: "40%",
+  [theme.breakpoints.up("md")]: {
+    marginLeft: theme.spacing(10),
+    width: "52%",
   },
 }));
 
@@ -55,17 +56,20 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export const Navbar = () => {
+
+  const navigate=useNavigate()
   return (
     <Container className="navbar">
-      <AppBar color="white" sx={{ boxShadow: "none",p:1 }} position="fixed">
+      <AppBar color="white" sx={{ boxShadow: "none",px:1 ,pb:1.5 }} position="fixed">
         <Container disableGutters maxWidth="lg" >
-          <Toolbar sx={{ border: ".1px solid black", py: 1 }}>
+          <Toolbar sx={{  py: 1 }}>
             <IconButton
               size="large"
               edge="start"
               color="inherit"
               aria-label="open drawer"
               sx={{ mr: 2 }}
+              onClick={()=>navigate('/')}
             >
               <FeedOutlinedIcon fontSize="large" />
             </IconButton>
@@ -74,6 +78,7 @@ export const Navbar = () => {
               noWrap
               component="div"
               sx={{ display: { xs: "none", sm: "block" }, fontWeight: 900 }}
+              onClick={()=>navigate('/')}
             >
               PINION
             </Typography>

@@ -14,21 +14,26 @@ import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
+import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const data = [
-  { name: "Explore", item: <WhatshotIcon fontSize="large" /> },
-  { name: "Chat", item: <ChatIcon fontSize="large" /> },
-  { name: "Friends", item: <PeopleAltRoundedIcon fontSize="large" /> },
+  { nav:'/explore',name: "Explore", item: <WhatshotIcon fontSize="large" /> },
+  { nav:'/addpost',name: "Post ", item: <AddCircleRoundedIcon fontSize="large" /> },
+  { nav:'/chat',name: "Chat", item: <ChatIcon fontSize="large" /> },
+  { nav:'/frnds',name: "Friends", item: <PeopleAltRoundedIcon fontSize="large" /> },
 ];
 
 export const MenuList = () => {
   const [open, setOpen] = useState(false);
+  const navigate=useNavigate()
   return (
     <Container disableGutters>
       <Stack
         direction="row"
         gap={1}
         sx={{ border: ".1px solid black", mb: 1, p: 1 }}
+        onClick={()=>navigate('/profile/lk')}
       >
         <Avatar />
 
@@ -42,6 +47,7 @@ export const MenuList = () => {
           direction="row"
           gap={2}
           sx={{ border: ".1px solid black", mb: 1, p: 1 }}
+          onClick={()=>navigate(el.nav)}
         >
           {el.item}
 

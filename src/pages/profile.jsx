@@ -1,14 +1,16 @@
-import { Box } from "@mui/system";
-import { CreatePost } from "../components/createPost";
 import { PostView } from "../components/postView";
 import { Bio } from "../components/bio";
 import { Container } from "@mui/system";
+import { CreatePostInitialize } from "../components/addPostshow";
 
 export const Profile = () => {
   return (
     <Container disableGutters>
       <Container
-        sx={{ display: {sm:"none", md: "none", lg: "none", xl: "none" }, mb: 10 }}
+        sx={{
+          display: { sm: "none", md: "none", lg: "none", xl: "none" },
+          mb: 10,
+        }}
         disableGutters
       >
         <Bio />
@@ -24,7 +26,7 @@ export const Profile = () => {
         }}
         disableGutters
       >
-      <CreatePost />
+        <CreatePostInitialize />
       </Container>
 
       <PostView />

@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import CancelIcon from "@mui/icons-material/Cancel";
 import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
+import { Box } from "@mui/system";
 
 export const CreatePost = () => {
   const [data, setData] = useState({ content: "", image: null });
@@ -44,7 +45,7 @@ export const CreatePost = () => {
   }, [cropState]);
 
   return (
-    <Container disableGutters sx={{ border: ".1px solid black", p: 2}}>
+    <Container maxWidth='md' disableGutters sx={{ border: ".1px solid black", p: 2}}>
       <Stack justifyContent="space-between" direction="row">
         <Avatar sx={{ mt: 1 }} />
         <IconButton component="label">

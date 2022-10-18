@@ -5,13 +5,14 @@ import { CreatePost } from "../components/createPost";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import { useNavigate } from "react-router-dom";
 import {IconButton} from "@mui/material";
+import { CreatePostInitialize } from "../components/addPostshow";
 
 
 export const Home = () => {
 
   const navigate=useNavigate()
   return (
-    <Container disableGutters>
+    <Container disableGutters >
       <Container
         sx={{ display: { md: "none", lg: "none", xl: "none" }, mb: 10 }}
         disableGutters
@@ -40,7 +41,7 @@ export const Home = () => {
         }}
         disableGutters
       >
-        <CreatePost />
+        <CreatePostInitialize />
       </Container>
 
       <PostView />
