@@ -1,15 +1,19 @@
-import * as React from "react";
+
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 export const BottomBar = () => {
-  const [value, setValue] = React.useState("Home");
+  const [value, setValue] = useState("/");
+  const navigate=useNavigate()
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    navigate(newValue)
   };
 
   return (
@@ -20,19 +24,20 @@ export const BottomBar = () => {
         onChange={handleChange}
       >
         <BottomNavigationAction
-          value="Home"
+          value="/"
           icon={<FeedOutlinedIcon fontSize="large" />}
         />
         <BottomNavigationAction
-          value="TravelExploreIcon"
-          icon={<TravelExploreIcon fontSize="large" />}
-        />
-        <BottomNavigationAction
-          value="folder"
+          value="/explore"
           icon={<WhatshotIcon fontSize="large" />}
         />
         <BottomNavigationAction
-          value="ChatIcon"
+          value="/search"
+          icon={<TravelExploreIcon fontSize="large" />}
+        />
+        
+        <BottomNavigationAction
+          value="/profile/lk"
           icon={<AccountCircleRoundedIcon fontSize="large" />}
         />
       </BottomNavigation>
