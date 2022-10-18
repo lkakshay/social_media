@@ -5,6 +5,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 import Cropper from "react-easy-crop";
+import { Box, Container } from "@mui/material";
 export const CropImage = ({ img, data, setData, setCropState, setImg }) => {
   const [src, setSrc] = useState("");
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -37,7 +38,7 @@ export const CropImage = ({ img, data, setData, setCropState, setImg }) => {
     setSrc(link);
   }, [img]);
   return (
-    <div className="crop-container">
+    <Container  disableGutters sx={{position:'relative',height:"360px",background:'black'}}>
       <Cropper
         className="cropper"
         image={src}
@@ -48,8 +49,8 @@ export const CropImage = ({ img, data, setData, setCropState, setImg }) => {
         onCropComplete={onCropComplete}
       />
 
-      <div className="crop-actions">
-        <Stack direction="row" spacing={2}>
+      <Box sx={{position:'relative',py:2}}>
+        <Stack direction="row"justifyContent="center" spacing={1}>
           <Button
             variant="contained"
             color="error"
@@ -73,8 +74,8 @@ export const CropImage = ({ img, data, setData, setCropState, setImg }) => {
             Continue
           </Button>
         </Stack>
-      </div>
-    </div>
+      </Box>
+    </Container>
   );
 };
 

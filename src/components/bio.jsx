@@ -1,21 +1,24 @@
-import { Button, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { TextField, IconButton } from "@mui/material";
 import { useState } from "react";
+import { Stack } from "@mui/system";
 
 export const Bio = () => {
   const [editStatus, setEditStatus] = useState(false);
   const [edit, setEdit] = useState({});
   return (
-    <div className="bio">
+    <Container maxWidth='xs' sx={{ border: ".1px solid black", py: 3 }}>
       {!editStatus ? (
-        <div className="bio-inner">
-          <div className="bio-image-div">
-            <div>
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQphqmpunOcktIYDIfRzoWH76GnevhjUbgkw-KYFu2mT0uIavZDs4V_Ekyl_c8UTE95wX4&usqp=CAU"></img>
-            </div>
-          </div>
+        <Box>
+          <Container disableGutters sx={{ width: "80%" }}>
+            <img
+              style={{ width: "100%", aspectRatio: 1 / 1, borderRadius: "50%" }}
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQphqmpunOcktIYDIfRzoWH76GnevhjUbgkw-KYFu2mT0uIavZDs4V_Ekyl_c8UTE95wX4&usqp=CAU"
+            />
+          </Container>
+
           <Typography
             sx={{ mt: 1, fontSize: "20px" }}
             variant="body1"
@@ -35,7 +38,6 @@ export const Bio = () => {
             as a Junior Software Developer for Cervus Defence
           </Typography>
           <Typography
-            className="bio-edit-text"
             sx={{
               mt: 1,
               fontSize: "19px",
@@ -49,25 +51,27 @@ export const Bio = () => {
           >
             <ModeEditOutlineOutlinedIcon fontSize="small" /> edit bio
           </Typography>
-        </div>
+        </Box>
       ) : (
-        <div className="bio-edit">
-          <div className="bio-edit-inner">
-            <IconButton
-              color="primary"
-              aria-label="upload picture"
-              component="label"
-            >
-              <input
-                hidden
-                accept="image/*"
-                type="file"
-                onChange={(e) => {
-                  setEdit({ ...edit, profilePic: e.target.files[0] });
-                }}
-              />
-              <AddAPhotoIcon fontSize="large" sx={{ color: "green" }} />
-            </IconButton>
+        <Container>
+          <Box>
+            <Stack>
+              <IconButton
+                color="primary"
+                aria-label="upload picture"
+                component="label"
+              >
+                <input
+                  hidden
+                  accept="image/*"
+                  type="file"
+                  onChange={(e) => {
+                    setEdit({ ...edit, profilePic: e.target.files[0] });
+                  }}
+                />
+                <AddAPhotoIcon fontSize="large" sx={{ color: "green" }} />
+              </IconButton>
+            </Stack>
             <TextField
               sx={{ width: "100%" }}
               value={edit.bio}
@@ -83,28 +87,27 @@ export const Bio = () => {
             >
               Write something
             </TextField>
-          </div>
+          </Box>
 
-          <div className="bio-edit-show">
-            <div>
+         
+            <Container sx={{p:2}} >
               {edit.profilePic ? (
-                <img src={URL.createObjectURL(edit.profilePic)} />
+                <img 
+                style={{ width: "100%", aspectRatio: 1 / 1, borderRadius: "50%" }}
+                src={URL.createObjectURL(edit.profilePic)} />
               ) : (
                 <></>
               )}
-            </div>
-          </div>
+            </Container>
+          
 
-          <div className="bio-edit-actions">
-            <div>
-              <div>
-                <Button color="success" variant="contained" size="small">
-                  update
-                </Button>
-              </div>
-              <div>
-              <Typography
-            className="bio-edit-text"
+          <Stack>
+            <Button color="success" variant="contained" size="small">
+              update
+            </Button>
+          </Stack>
+
+          <Typography
             sx={{
               mt: 1,
               fontSize: "15px",
@@ -115,13 +118,10 @@ export const Bio = () => {
             align="center"
             onClick={() => setEditStatus(false)}
           >
-             cancel
+            cancel
           </Typography>
-              </div>
-            </div>
-          </div>
-        </div>
+        </Container>
       )}
-    </div>
+    </Container>
   );
 };

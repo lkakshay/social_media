@@ -10,18 +10,24 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Badge, Box } from "@mui/material";
+import { Badge, Box, Container } from "@mui/material";
 import WhatshotRoundedIcon from "@mui/icons-material/WhatshotRounded";
 import ShareRoundedIcon from "@mui/icons-material/ShareRounded";
 
-export const Post = () => {
+export const PostCard = () => {
   const handleExpandClick = () => {};
 
   return (
-    <div className="post">
-      <Card className="post-card" sx={{ maxWidth: "100%",borderRadius:'0px' }}>
+    <Container disableGutters maxWidth="100">
+      <Card
+        className="post-card"
+        sx={{
+          maxWidth: "100%",
+          borderRadius: "0px",
+          mb:2
+        }}
+      >
         <CardHeader
-          className="post-header"
           avatar={
             <Avatar
               sx={{ bgcolor: red[500] }}
@@ -37,10 +43,9 @@ export const Post = () => {
           title="Shrimp and Chorizo Paella"
           subheader="September 14, 2016"
         />
-        <CardMedia
-          className="post-image"
-          component="img"
-          image="https://images.pexels.com/photos/343238/pexels-photo-343238.jpeg?auto=compress&cs=tinysrgb&w=1600"
+        <img
+          style={{ width: "100%", aspectRatio: 16 / 9, padding: "0 2%" }}
+          src="https://images.pexels.com/photos/343238/pexels-photo-343238.jpeg?auto=compress&cs=tinysrgb&w=1600"
           alt="Paella dish"
         />
         <CardContent>
@@ -49,20 +54,20 @@ export const Post = () => {
             cook together with your guests. Add 1 cup of frozen peas along with
           </Typography>
         </CardContent>
-        <CardActions disableSpacing>
+        <CardActions>
           <Badge sx={{ mr: 2 }} size="small">
-            <WhatshotRoundedIcon sx={{color:'#cccccc'}} fontSize="large" />
+            <WhatshotRoundedIcon sx={{ color: "#cccccc" }} fontSize="large" />
           </Badge>
           <Badge>
-            <ForumRoundedIcon  fontSize="large" />
+            <ForumRoundedIcon fontSize="large" />
           </Badge>
-          <Box  sx={{ marginLeft: "auto", mr: 1 }} onClick={handleExpandClick}>
+          <Box sx={{ marginLeft: "auto", mr: 1 }} onClick={handleExpandClick}>
             <Badge>
               <ShareRoundedIcon fontSize="large" />
             </Badge>
           </Box>
         </CardActions>
       </Card>
-    </div>
+    </Container>
   );
 };

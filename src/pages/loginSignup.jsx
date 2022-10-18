@@ -1,11 +1,10 @@
-import './loginSignup.css'
-import * as React from "react";
+
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { Grid, TextField } from "@mui/material";
+import { Container, Grid, TextField } from "@mui/material";
 import { createAuthData,postAuthData } from "../Redux/reducers/authReducer";
 import Alert from "@mui/material/Alert";
 import { useNavigate } from 'react-router-dom';
@@ -93,7 +92,7 @@ export const LoginSignup = () => {
 
   const style = {
     position: "absolute",
-    top: "50%",
+    top: "47%",
     left: "50%",
     transform: "translate(-50%, -50%)",
     bgcolor: "white",
@@ -108,8 +107,8 @@ export const LoginSignup = () => {
     setLoginValidation({...loginValidation,show:false})
   },[signUpData,loginData])
   return (
-    <div>
-      <Box className="loginSignup-box" sx={style}>
+
+      <Container  disableGutters maxWidth='xs'  sx={style}>
             {user ? (
               <Box>
                 <Typography variant="body1" align="right">
@@ -285,7 +284,7 @@ export const LoginSignup = () => {
                 </Button>
               </Box>
             )}
-          </Box>
-    </div>
+          </Container>
+    
   );
 };

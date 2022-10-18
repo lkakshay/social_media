@@ -1,27 +1,33 @@
-import "./profile.css";
 import { Box } from "@mui/system";
-import { CreatePost } from "../components/CreatePost";
-import { Feed } from "../components/PostView";
+import { CreatePost } from "../components/createPost";
+import { PostView } from "../components/postView";
 import { Bio } from "../components/bio";
-import { HomeHeaderSmallScreen } from "../components/HomebarMobile";
+import { Container } from "@mui/system";
 
 export const Profile = () => {
   return (
-    <div className="profile">
-      <div className="profile-inner-container">
-        <Box className="profile-feed">
-          <div className="profile-mibile-bio">
-            <HomeHeaderSmallScreen />
-            <Bio />
-          </div>
+    <Container disableGutters>
+      <Container
+        sx={{ display: {sm:"none", md: "none", lg: "none", xl: "none" }, mb: 10 }}
+        disableGutters
+      >
+        <Bio />
+      </Container>
+      <Container
+        sx={{
+          display: {
+            xs: "none",
+            sm: "none",
+            lg: "block",
+            xl: "block",
+          },
+        }}
+        disableGutters
+      >
+      <CreatePost />
+      </Container>
 
-          <CreatePost />
-          <Feed />
-        </Box>
-        <Box className="profile-find">
-          <Bio />
-        </Box>
-      </div>
-    </div>
+      <PostView />
+    </Container>
   );
 };

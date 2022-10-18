@@ -1,5 +1,5 @@
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import { IconButton, TextField } from "@mui/material";
+import { Avatar, Container, Grid, IconButton, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { CropImage } from "./cropImage";
 import Button from "@mui/material/Button";
@@ -44,29 +44,10 @@ export const CreatePost = () => {
   }, [cropState]);
 
   return (
-    <div className="addpost">
-      <div className="addpost-show">
-        <TextField
-          value={data.content}
-          fullWidth
-          multiline
-          size="small"
-          variant="outlined"
-          color="success"
-          placeholder="Write something"
-          margin="dense"
-          onChange={(e) => {
-            setData({ ...data, content: e.target.value });
-          }}
-        >
-          Write something
-        </TextField>
-
-        <IconButton
-          color="primary"
-          aria-label="upload picture"
-          component="label"
-        >
+    <Container disableGutters sx={{ border: ".1px solid black", p: 2}}>
+      <Stack justifyContent="space-between" direction="row">
+        <Avatar sx={{ mt: 1 }} />
+        <IconButton component="label">
           <input
             hidden
             accept="image/*"
@@ -76,41 +57,66 @@ export const CreatePost = () => {
               setCropState(true);
             }}
           />
-          <AddAPhotoIcon sx={{ mx: "10px", color: "green" }} />
+          <AddAPhotoIcon fontSize="large" sx={{ color: "green" }} />
         </IconButton>
-      </div>
+      </Stack>
+      <TextField
+        value={data.content}
+        fullWidth
+        multiline
+        size="small"
+        variant="outlined"
+        color="success"
+        placeholder="Write something"
+        margin="dense"
+        onChange={(e) => {
+          setData({ ...data, content: e.target.value });
+        }}
+      >
+        Write something
+      </TextField>
 
       {postStatus ? (
-        <div className="addpost-preview">
-          <div className="post-image">
-            {preview ? <img src={prevImg} alt="null" /> : <></>}
-          </div>
-          <div className="addpost-actions">
-            <Stack direction="row" sx={{ mt: 6, mr: 2 }} spacing={2}>
-              <Button
-                variant="contained"
-                color="error"
-                startIcon={<CancelIcon />}
-                onClick={() => {
-                  setData({ content: "", image: null });
-                  setImg(null);
-                }}
-              >
-                Cancel
-              </Button>
-              <Button
-                variant="contained"
-                color="success"
-                onClick={() => {
-                  handlePost();
-                }}
-                endIcon={<SendIcon />}
-              >
-                Post
-              </Button>
-            </Stack>
-          </div>
-        </div>
+        <Container disableGutters maxWidth="xs">
+          {preview ? (
+            <img
+              style={{ width: "100%", aspectRatio: 16 / 9, marginTop: "15px" }}
+              src={prevImg}
+              alt="null"
+            />
+          ) : (
+            <></>
+          )}
+
+          <Stack
+            direction="row"
+            sx={{ mt: 2, mr: 2 }}
+            justifyContent="center"
+            spacing={2}
+          >
+            <Button
+              variant="contained"
+              color="error"
+              startIcon={<CancelIcon />}
+              onClick={() => {
+                setData({ content: "", image: null });
+                setImg(null);
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="contained"
+              color="success"
+              onClick={() => {
+                handlePost();
+              }}
+              endIcon={<SendIcon />}
+            >
+              Post
+            </Button>
+          </Stack>
+        </Container>
       ) : (
         <></>
       )}
@@ -126,6 +132,6 @@ export const CreatePost = () => {
       ) : (
         <></>
       )}
-    </div>
+    </Container>
   );
 };
