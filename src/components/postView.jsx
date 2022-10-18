@@ -4,8 +4,8 @@ export const PostView = () => {
   let array = [1, 2, 3, 4];
   return (
     <Container disableGutters sx={{mt:2}}>
-      {array.map(() => {
-        return <PostCard />;
+      {array.map((i) => {
+        return <PostCard key={i} />;
       })}
     </Container>
   );

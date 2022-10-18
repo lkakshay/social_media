@@ -57,13 +57,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export const Navbar = () => {
   return (
     <Container className="navbar">
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar
-          color="transparent"
-          sx={{ boxShadow: "none" }}
-          position="static"
-        >
-          <Toolbar>
+      <AppBar color="white" sx={{ boxShadow: "none",p:1 }} position="fixed">
+        <Container disableGutters maxWidth="lg" >
+          <Toolbar sx={{ border: ".1px solid black", py: 1 }}>
             <IconButton
               size="large"
               edge="start"
@@ -122,8 +118,8 @@ export const Navbar = () => {
               </IconButton>
             </Box>
           </Toolbar>
-        </AppBar>
-      </Box>
+        </Container>
+      </AppBar>
     </Container>
   );
 };

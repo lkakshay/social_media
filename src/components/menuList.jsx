@@ -1,5 +1,13 @@
 import { Container } from "@mui/system";
-import { Avatar, Box, Button, Collapse, Link, Stack, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Collapse,
+  Link,
+  Stack,
+  Typography,
+} from "@mui/material";
 import ChatIcon from "@mui/icons-material/Chat";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
 import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
@@ -30,6 +38,7 @@ export const MenuList = () => {
       </Stack>
       {data.map((el, i) => (
         <Stack
+          key={i}
           direction="row"
           gap={2}
           sx={{ border: ".1px solid black", mb: 1, p: 1 }}
@@ -56,8 +65,8 @@ export const MenuList = () => {
           </Box>
         </Stack>
         <Collapse sx={{ width: "100%" }} in={open} timeout="auto" unmountOnExit>
-          <Stack sx={{pt:2,}}>
-            <Button  sx={{color:'red'}}>Logout</Button>
+          <Stack sx={{ pt: 2 }}>
+            <Button sx={{ color: "red" }}>Logout</Button>
           </Stack>
         </Collapse>
       </Container>

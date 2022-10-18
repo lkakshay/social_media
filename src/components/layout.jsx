@@ -23,7 +23,7 @@ export const Layout = () => {
             lg: "block",
             xl: "block",
           },
-          mb:2
+          mb:12
         }}
       >
        <Navbar/>
@@ -38,7 +38,7 @@ export const Layout = () => {
             sm: "none",
             md: "none",
             lg: "block",
-          },pr:2,
+          },
           
         }}
       >
