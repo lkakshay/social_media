@@ -6,7 +6,8 @@ import Button from "@mui/material/Button";
 import CancelIcon from "@mui/icons-material/Cancel";
 import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
-import { Box } from "@mui/system";
+import { addPostAPI } from "../api/apiCalls/postApis";
+import { useNavigate } from "react-router-dom";
 
 export const CreatePost = () => {
   const [data, setData] = useState({ content: "", image: null });
@@ -15,8 +16,20 @@ export const CreatePost = () => {
   const [postStatus, setPostStatus] = useState(true);
   const [preview, setPreview] = useState(false);
   const [prevImg, setPrevImg] = useState(null);
+  const navigate=useNavigate()
 
-  const handlePost = () => {};
+  const handlePost = () => {
+    const formData = new FormData();
+    if (data.image !== null) formData.append("image", data.image);
+
+    if (data.content.length > 0) formData.append("content", data.content);
+
+    addPostAPI(formData)
+    .then(()=>navigate('/profile'))
+    .catch((error)=>console.log('error',error))
+
+      
+  };
 
   const validate = () => {
     if (data.content.length > 0) return setPostStatus(true);
@@ -45,7 +58,11 @@ export const CreatePost = () => {
   }, [cropState]);
 
   return (
-    <Container maxWidth='md' disableGutters sx={{ border: ".1px solid black", p: 2}}>
+    <Container
+      maxWidth="md"
+      disableGutters
+      sx={{ border: ".1px solid black", p: 2 }}
+    >
       <Stack justifyContent="space-between" direction="row">
         <Avatar sx={{ mt: 1 }} />
         <IconButton component="label">

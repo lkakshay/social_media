@@ -1,33 +1,26 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../reducers/authReducer";
-import storage from "redux-persist/lib/storage";
-import { combineReducers } from "@reduxjs/toolkit";
-import persistReducer from "redux-persist/es/persistReducer";
-import persistStore from "redux-persist/es/persistStore";
-import sessionStorage from "redux-persist/es/storage/session";
+const key = process.env.REACT_APP_LOCALSTORAGE_KEY;
 
-const persistConfig = {
-  key: "root",
-  storage,
-  blacklist: ["authReducer"]
+const localStorageMiddleware = ({ getState }) => {
+  return (next) => (action) => {
+    const result = next(action);
+    localStorage.setItem(key, JSON.stringify(getState()));
+    return result;
+  };
 };
 
-const userPersistConfig = {
-  key: "user",
-  storage: sessionStorage,
+const reHydrateStore = () => {
+  if (localStorage.getItem(key) !== null) {
+    return JSON.parse(localStorage.getItem(key));
+  }
 };
-
-const rootReducer = combineReducers({
- 
-  authReducer: persistReducer(userPersistConfig, authReducer),
-
-});
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: {
+    auth: authReducer,
+  },
+  preloadedState: reHydrateStore(),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(localStorageMiddleware),
 });
-
-export const persistor = persistStore(store);
-

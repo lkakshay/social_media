@@ -1,20 +1,18 @@
-
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Container, Grid, TextField } from "@mui/material";
-import { createAuthData,postAuthData } from "../Redux/reducers/authReducer";
+import { createAuthData, postAuthData } from "../Redux/reducers/authReducer";
 import Alert from "@mui/material/Alert";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export const LoginSignup = () => {
   const dispatch = useDispatch();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const [user, setUser] = useState(false);
-
 
   //sign up
 
@@ -27,32 +25,31 @@ export const LoginSignup = () => {
   const [signUpData, setSingnUpData] = useState({});
   const handleSignUp = () => {
     dispatch(createAuthData(signUpData)).then(({ payload }) => {
-      
-      if (payload === "success") {
-        
-          setSignUpvalidation({
-            ...signUpvalidation,
-            msg: payload,
-            show: true,
-            error: false,
-          });
-          setTimeout(()=>{
-            setUser(false)
-          },1500);
-          
-          
-          return;
-        }
-      
+      if (payload.msg === "success") {
+        setSignUpvalidation({
+          ...signUpvalidation,
+          msg: payload.msg,
+          show: true,
+          error: false,
+        });
+        setTimeout(() => {
+          setUser(false);
+          navigate("/");
+        }, 1500);
 
-      setSignUpvalidation({ ...signUpvalidation, msg: payload, show: true, error: true });
-      
+        return;
+      }
+
+      setSignUpvalidation({
+        ...signUpvalidation,
+        msg: payload.msg,
+        show: true,
+        error: true,
+      });
     });
   };
-  
 
   //login
-
 
   const [loginValidation, setLoginValidation] = useState({
     error: false,
@@ -61,34 +58,23 @@ export const LoginSignup = () => {
 
   const [loginData, setLoginData] = useState({});
   const handleLogin = () => {
-    dispatch(postAuthData(loginData))
-    .then(({ payload }) => {
-
-      
+    dispatch(postAuthData(loginData)).then(({ payload }) => {
       if (payload.status === 200) {
-        
-          setLoginValidation({
-            ...loginValidation,
-            show: true,
-            error: false,
-          }); 
-          setTimeout(()=>{
+        setLoginValidation({
+          ...loginValidation,
+          show: true,
+          error: false,
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
 
-            navigate('/')
-           
-            
-          },1500);
-          
-          return;
-        
+        return;
       }
 
       setLoginValidation({ ...loginValidation, show: true, error: true });
     });
   };
-  
-  
-
 
   const style = {
     position: "absolute",
@@ -99,192 +85,189 @@ export const LoginSignup = () => {
     p: 4,
   };
 
-
-
-
-  useEffect(()=>{
-    setSignUpvalidation({...signUpvalidation,show:false})
-    setLoginValidation({...loginValidation,show:false})
-  },[signUpData,loginData])
+  useEffect(() => {
+    setSignUpvalidation({ ...signUpvalidation, show: false });
+    setLoginValidation({ ...loginValidation, show: false });
+  }, [signUpData, loginData]);
   return (
+    <Container disableGutters maxWidth="xs" sx={style}>
+      {user ? (
+        <Box>
+          <Typography variant="body1" align="right">
+            English(USA)
+          </Typography>
+          <Typography
+            sx={{
+              mt: 1,
+              fontWeight: "600",
+              color: "#191919",
+              fontStyle: "italic",
+            }}
+            variant="h5"
+            component="h1"
+          >
+            Sign up to <span className="loginSignup-heading">PINION</span>
+          </Typography>
+          <Box sx={{ display: "flex" }}>
+            <Typography variant="h6" sx={{ mt: 2 }}>
+              Already a member?
+            </Typography>
 
-      <Container  disableGutters maxWidth='xs'  sx={style}>
-            {user ? (
-              <Box>
-                <Typography variant="body1" align="right">
-                  English(USA)
-                </Typography>
-                <Typography
-                  sx={{ mt: 1, fontWeight: "600", color: "#191919" ,fontStyle:'italic'}}
-                  variant='h5'
-                  component="h1"
-                >
-                  Sign up to <span className='loginSignup-heading' >PINION</span>
-                </Typography>  
-                <Box sx={{ display: "flex" }}>
-                  <Typography variant="h6" sx={{ mt: 2 }}>
-                    Already a member?
-                  </Typography>
+            <Typography
+              onClick={() => {
+                setUser(false);
+                setLoginValidation({ ...loginValidation, show: false });
+                setSingnUpData({});
+              }}
+              variant="h6"
+              sx={{ mt: 2, ml: 1, mb: 5, color: "#3B44F6" }}
+            >
+              Log in
+            </Typography>
+          </Box>
+          <Grid
+            sx={{
+              display: "grid",
+              gap: 3,
+            }}
+          >
+            <TextField
+              label="Username"
+              type="text"
+              fullWidth
+              onChange={(e) =>
+                setSingnUpData({ ...signUpData, username: e.target.value })
+              }
+            />
+            <TextField
+              label="Email"
+              type="email"
+              fullWidth
+              onChange={(e) =>
+                setSingnUpData({ ...signUpData, email: e.target.value })
+              }
+            />
+            <TextField
+              label="Password"
+              type="password"
+              fullWidth
+              helperText="Must contain at least  8 characters"
+              onChange={(e) =>
+                setSingnUpData({
+                  ...signUpData,
+                  password: e.target.value,
+                })
+              }
+            />
+          </Grid>
 
-                  <Typography
-                    onClick={() => {
-                      setUser(false)
-                      setLoginValidation({...loginValidation,show:false})
-                      setSingnUpData({})}}
-                    variant="h6"
-                    sx={{ mt: 2, ml: 1, mb: 5, color: "#3B44F6" }}
-                  >
-                    Log in
-                  </Typography>
-                </Box>
-                <Grid
-                  sx={{
-                    display: "grid",
-                    gap: 3,
-                  }}
-                >
-                  <TextField
-                    label="Username"
-                    type="text"
-                    fullWidth
-                    onChange={(e) =>
-                      setSingnUpData({ ...signUpData, username: e.target.value })
-                    }
-                  />
-                  <TextField
-                    label="Email"
-                    type="email"
-                    fullWidth
-                    onChange={(e) =>
-                      setSingnUpData({ ...signUpData, email: e.target.value })
-                    }
-                  />
-                  <TextField
-                    label="Password"
-                    type="password"
-                    fullWidth
-                    helperText="Must contain at least  8 characters"
-                    onChange={(e) =>
-                      setSingnUpData({
-                        ...signUpData,
-                        password: e.target.value,
-                      })
-                    }
-                  />
-                </Grid>
+          {signUpvalidation.show ? (
+            <div style={{ marginTop: "10px" }}>
+              {signUpvalidation.error ? (
+                <Alert severity="warning">{signUpvalidation.msg}</Alert>
+              ) : (
+                <Alert severity="success">Registration Successfull</Alert>
+              )}
+            </div>
+          ) : (
+            <></>
+          )}
 
-                {signUpvalidation.show ? (
-                  <div style={{marginTop:'10px'}}>
-                    {signUpvalidation.error ? (
-                      <Alert severity="warning">
-                        {signUpvalidation.msg}
-                      </Alert>
-                    ) : (
-                      <Alert severity="success">
-                        Registration Successfull
-                      </Alert>
-                    )}
-                  </div>
-                ) : (
-                  <></>
-                )}
+          <Button
+            onClick={handleSignUp}
+            sx={{ mt: 3, mb: 3, backgroundColor: "#191919" }}
+            color={!signUpvalidation.error ? "success" : "error"}
+            variant="contained"
+            fullWidth
+            size="large"
+          >
+            sign up
+          </Button>
+        </Box>
+      ) : (
+        <Box>
+          <Typography variant="body1" align="right">
+            English(USA)
+          </Typography>
 
-                <Button
-                  onClick={handleSignUp}
-                  sx={{ mt: 3, mb: 3, backgroundColor: "#191919" }}
-                  color={!signUpvalidation.error?"success":'error'}
-                  variant="contained"
-                  fullWidth
-                  size="large"
-                >
-                  sign up
-                </Button>
-              </Box>
-            ) : (
-              <Box>
-                <Typography variant="body1" align="right">
-                  English(USA)
-                </Typography>
+          <Typography
+            sx={{
+              mt: 1,
+              fontWeight: "600",
+              color: "#191919",
+              fontStyle: "italic",
+            }}
+            variant="h5"
+            component="h1"
+          >
+            Log in to <span className="loginSignup-heading">PINION</span>
+          </Typography>
+          <Box sx={{ display: "flex" }}>
+            <Typography variant="h6" sx={{ mt: 2 }}>
+              New user?
+            </Typography>
 
-                <Typography
-                  sx={{ mt: 1, fontWeight: "600", color: "#191919" ,fontStyle:'italic'}}
-                  variant='h5'
-                  component="h1"
-                >
-                  Log in to <span className='loginSignup-heading' >PINION</span>
-                </Typography>  
-                <Box sx={{ display: "flex" }}>
-                  <Typography variant="h6" sx={{ mt: 2 }}>
-                    New user?
-                  </Typography>
+            <Typography
+              onClick={() => {
+                setUser(true);
+                setSignUpvalidation({ ...signUpvalidation, show: false });
+              }}
+              variant="h6"
+              sx={{ mt: 2, ml: 1, mb: 5, color: "#3B44F6" }}
+            >
+              Sign up
+            </Typography>
+          </Box>
+          <Grid
+            sx={{
+              display: "grid",
+              gap: 3,
+            }}
+          >
+            <TextField
+              label="Email"
+              type="email"
+              autoComplete="current-email"
+              fullWidth
+              onChange={(e) =>
+                setLoginData({ ...loginData, email: e.target.value })
+              }
+            />
+            <TextField
+              label="Password"
+              type="Password"
+              autoComplete="current-password"
+              fullWidth
+              onChange={(e) =>
+                setLoginData({ ...loginData, password: e.target.value })
+              }
+            />
+          </Grid>
 
-                  <Typography
-                    
-                    onClick={() => {
-                      setUser(true)
-                      setSignUpvalidation({...signUpvalidation,show:false})}}
-                    variant="h6"
-                    sx={{ mt: 2, ml: 1, mb: 5, color: "#3B44F6" }}
-                  >
-                    Sign up
-                  </Typography>
-                </Box>
-                <Grid
-                  sx={{
-                    display: "grid",
-                    gap: 3,
-                  }}
-                >
-                  <TextField
+          {loginValidation.show ? (
+            <div style={{ marginTop: "10px" }}>
+              {loginValidation.error ? (
+                <Alert severity="error">Credentials Not Found</Alert>
+              ) : (
+                <Alert severity="success">Login Successfull</Alert>
+              )}
+            </div>
+          ) : (
+            <></>
+          )}
 
-                    label="Email"
-                    type="email"
-                    autoComplete="current-email"
-                    fullWidth
-                    onChange={(e) =>
-                      setLoginData({ ...loginData, email: e.target.value })
-                    }
-                  />
-                  <TextField
-                    label="Password"
-                    type="Password"
-                    autoComplete="current-password"
-                    fullWidth
-                    onChange={(e) =>
-                      setLoginData({ ...loginData, password: e.target.value })
-                    }
-                  />
-                </Grid>
-
-                {loginValidation.show ? (
-                  <div style={{marginTop:'10px'}}>
-                    {loginValidation.error ? (
-                      <Alert severity="error">
-                        Credentials Not Found
-                      </Alert>
-                    ) : (
-                      <Alert severity="success">
-                        Login Successfull
-                      </Alert>
-                    )}
-                  </div>
-                ) : (
-                  <></>
-                )}
-
-                <Button
-                  sx={{ mt: 3, mb: 3, backgroundColor: "#191919" }}
-                  color={!loginValidation.error?"success":'error'}
-                  variant="contained"
-                  fullWidth
-                  size="large"
-                  onClick={handleLogin}
-                >
-                  sign in
-                </Button>
-              </Box>
-            )}
-          </Container>
-    
+          <Button
+            sx={{ mt: 3, mb: 3, backgroundColor: "#191919" }}
+            color={!loginValidation.error ? "success" : "error"}
+            variant="contained"
+            fullWidth
+            size="large"
+            onClick={handleLogin}
+          >
+            sign in
+          </Button>
+        </Box>
+      )}
+    </Container>
   );
 };
