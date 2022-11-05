@@ -1,5 +1,5 @@
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import { Avatar, Container, Grid, IconButton, TextField } from "@mui/material";
+import { Avatar, Container, IconButton, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { CropImage } from "./cropImage";
 import Button from "@mui/material/Button";
@@ -16,7 +16,7 @@ export const CreatePost = () => {
   const [postStatus, setPostStatus] = useState(true);
   const [preview, setPreview] = useState(false);
   const [prevImg, setPrevImg] = useState(null);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const handlePost = () => {
     const formData = new FormData();
@@ -25,10 +25,8 @@ export const CreatePost = () => {
     if (data.content.length > 0) formData.append("content", data.content);
 
     addPostAPI(formData)
-    .then(()=>navigate('/profile'))
-    .catch((error)=>console.log('error',error))
-
-      
+      .then(() => navigate("/profile/lk"))
+      .catch((error) => console.log("error", error));
   };
 
   const validate = () => {
