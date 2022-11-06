@@ -5,8 +5,7 @@ import { getPostsByUserAPI } from "./api/apiCalls/postApis";
 
 
 function App() {
-  getPostsByUserAPI('test@gmail.com').then((res)=>console.log('res',res))
-  
+  // getPostsByUserAPI('test@gmail.com').then((res)=>console.log('res',res))
   return (
     <ThemeWrap>
       <CssBaseline>

@@ -1,22 +1,59 @@
-import { Box, Button, Container, Typography } from "@mui/material";
+import {  Box, Button, Container, Typography } from "@mui/material";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { TextField, IconButton } from "@mui/material";
 import { useState } from "react";
 import { Stack } from "@mui/system";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getProfileData } from "../Redux/reducers/profileReducer";
+import { useParams } from "react-router-dom";
+import { editProfileDataAPI } from "../api/apiCalls/profileApis";
+import { getClientData } from "../Redux/reducers/userReducer";
 
 export const Bio = () => {
+  const Bio = useSelector((state) => state.profile.data);
+  const client = useSelector((state) => state.user.data);
+
+  const dispatch = useDispatch();
+
   const [editStatus, setEditStatus] = useState(false);
+
   const [edit, setEdit] = useState({});
+
+  const { username } = useParams();
+
+  const posteditBio=()=>{
+   
+    const formData = new FormData();
+    if (edit.image!== undefined) formData.append("image", edit.image);
+
+    if (edit.about.length > 0) formData.append("about", edit.about);
+
+    editProfileDataAPI(formData)
+    .then(()=>{
+      setEditStatus(false)
+      dispatch(getProfileData(username))
+      dispatch(getClientData())
+    })
+
+  }
+
+  useEffect(() => {
+    dispatch(getProfileData(username));
+  }, [username]);
   return (
-    <Container maxWidth='xs' sx={{ border: ".1px solid black", py: 3 }}>
+    <Container maxWidth="xs" sx={{ border: ".1px solid black", py: 3 }}>
       {!editStatus ? (
         <Box>
           <Container disableGutters sx={{ width: "80%" }}>
+            {Bio.imgUrl?
             <img
               style={{ width: "100%", aspectRatio: 1 / 1, borderRadius: "50%" }}
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQphqmpunOcktIYDIfRzoWH76GnevhjUbgkw-KYFu2mT0uIavZDs4V_Ekyl_c8UTE95wX4&usqp=CAU"
-            />
+              src={Bio.imgUrl}
+              alt='profile pic'
+            />:<img  src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' 
+            alt="no profile pic" style={{ width: "100%", aspectRatio: 1 / 1, borderRadius: "50%" }}/>}
           </Container>
 
           <Typography
@@ -25,7 +62,7 @@ export const Bio = () => {
             gutterBottom
             align="center"
           >
-            Angela White
+            {Bio.user_id?.username}
           </Typography>
           <Typography
             sx={{ mt: 1, fontSize: "15px" }}
@@ -33,24 +70,31 @@ export const Bio = () => {
             gutterBottom
             align="center"
           >
-            I am currently a first-year student at King's College London
-            studying for a Masters in Computer Science. I have previously worked
-            as a Junior Software Developer for Cervus Defence
+            {Bio?.about}
           </Typography>
-          <Typography
-            sx={{
-              mt: 1,
-              fontSize: "19px",
-              fontStyle: "italic",
-              color: "green",
-            }}
-            variant="body1"
-            gutterBottom
-            align="center"
-            onClick={() => setEditStatus(true)}
-          >
-            <ModeEditOutlineOutlinedIcon fontSize="small" /> edit bio
-          </Typography>
+          {client.username === username ? (
+            <Stack>
+              <Button
+                sx={{
+                  mt: 1,
+                  textTransform: "none",
+                  fontSize: "16px",
+                }}
+                color="success"
+                variant="text"
+                size="medium"
+                onClick={() => {
+                  setEditStatus(true)
+                  setEdit({about:Bio.about})
+                }}
+              >
+                <ModeEditOutlineOutlinedIcon fontSize="small" />
+                edit
+              </Button>
+            </Stack>
+          ) : (
+            <></>
+          )}
         </Box>
       ) : (
         <Container>
@@ -66,7 +110,7 @@ export const Bio = () => {
                   accept="image/*"
                   type="file"
                   onChange={(e) => {
-                    setEdit({ ...edit, profilePic: e.target.files[0] });
+                    setEdit({ ...edit, image: e.target.files[0] });
                   }}
                 />
                 <AddAPhotoIcon fontSize="large" sx={{ color: "green" }} />
@@ -74,7 +118,7 @@ export const Bio = () => {
             </Stack>
             <TextField
               sx={{ width: "100%" }}
-              value={edit.bio}
+              value={edit.about}
               multiline
               size="small"
               variant="outlined"
@@ -82,44 +126,53 @@ export const Bio = () => {
               placeholder="Write something"
               margin="dense"
               onChange={(e) => {
-                setEdit({ ...edit, bio: e.target.value });
+                setEdit({ ...edit, about: e.target.value });
               }}
             >
               Write something
             </TextField>
           </Box>
 
-         
-            <Container sx={{p:2}} >
-              {edit.profilePic ? (
-                <img 
-                style={{ width: "100%", aspectRatio: 1 / 1, borderRadius: "50%" }}
-                src={URL.createObjectURL(edit.profilePic)} />
-              ) : (
-                <></>
-              )}
-            </Container>
-          
+          <Container sx={{ p: 2 }}>
+            {edit.image ? (
+              <img
+                style={{
+                  width: "100%",
+                  aspectRatio: 1 / 1,
+                  borderRadius: "50%",
+                }}
+                src={URL.createObjectURL(edit.image)}
+              />
+            ) : (
+              <></>
+            )}
+          </Container>
 
           <Stack>
-            <Button color="success" variant="contained" size="small">
+            <Button
+              color="success"
+              variant="contained"
+              size="small"
+              onClick={() => posteditBio()}
+            >
               update
             </Button>
+            <Button
+              sx={{
+                mt: 1,
+                textTransform: "none",
+              }}
+              color="error"
+              variant="text"
+              size="small"
+              onClick={() => {
+                setEdit({});
+                setEditStatus(false);
+              }}
+            >
+              cancel
+            </Button>
           </Stack>
-
-          <Typography
-            sx={{
-              mt: 1,
-              fontSize: "15px",
-              color: "red",
-            }}
-            variant="body1"
-            gutterBottom
-            align="center"
-            onClick={() => setEditStatus(false)}
-          >
-            cancel
-          </Typography>
         </Container>
       )}
     </Container>

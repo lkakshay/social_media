@@ -17,6 +17,7 @@ import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 const data = [
   { nav:'/explore',name: "Explore", item: <WhatshotIcon fontSize="large" /> },
   { nav:'/addpost',name: "Post ", item: <AddCircleRoundedIcon fontSize="large" /> },
@@ -25,6 +26,8 @@ const data = [
 ];
 
 export const MenuList = () => {
+const userData=useSelector((state)=>state.user.data)
+
   const [open, setOpen] = useState(false);
   const navigate=useNavigate()
   return (
@@ -33,12 +36,13 @@ export const MenuList = () => {
         direction="row"
         gap={1}
         sx={{ border: ".1px solid black", mb: 1, p: 1 }}
-        onClick={()=>navigate('/profile/lk')}
+        onClick={()=>navigate('/profile/'+userData.username)}
       >
-        <Avatar />
+        {userData.profilePic?<Avatar src={userData.profilePic} />:<Avatar />}
+       
 
         <Stack justifyContent="center">
-          <Typography>Angela White</Typography>
+          <Typography>{userData.username}</Typography>
         </Stack>
       </Stack>
       {data.map((el, i) => (
