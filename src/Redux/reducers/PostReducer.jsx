@@ -31,7 +31,7 @@ const createAuthData = createAsyncThunk("api/register", async (data) => {
 });
 
 const authInfoSlice = createSlice({
-  name: "auth",
+  name: "post",
   initialState: {
     authStatus: false,
     isLoading: false,

@@ -8,6 +8,7 @@ import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 import { addPostAPI } from "../api/apiCalls/postApis";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const CreatePost = () => {
   const [data, setData] = useState({ content: "", image: null });
@@ -17,6 +18,7 @@ export const CreatePost = () => {
   const [preview, setPreview] = useState(false);
   const [prevImg, setPrevImg] = useState(null);
   const navigate = useNavigate();
+  const userData=useSelector((state)=>state.user.data)
 
   const handlePost = () => {
     const formData = new FormData();
@@ -25,7 +27,7 @@ export const CreatePost = () => {
     if (data.content.length > 0) formData.append("content", data.content);
 
     addPostAPI(formData)
-      .then(() => navigate("/profile/lk"))
+      .then(() => navigate("/profile/"+userData.username))
       .catch((error) => console.log("error", error));
   };
 
@@ -62,7 +64,7 @@ export const CreatePost = () => {
       sx={{ border: ".1px solid black", p: 2 }}
     >
       <Stack justifyContent="space-between" direction="row">
-        <Avatar sx={{ mt: 1 }} />
+      {userData.profilePic?<Avatar sx={{mt:1}} src={userData.profilePic} />:<Avatar sx={{mt:1}} />}
         <IconButton component="label">
           <input
             hidden

@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Collapse,
-  Link,
   Stack,
   Typography,
 } from "@mui/material";
@@ -28,6 +27,7 @@ const data = [
 export const MenuList = () => {
 const userData=useSelector((state)=>state.user.data)
 
+
   const [open, setOpen] = useState(false);
   const navigate=useNavigate()
   return (
@@ -42,7 +42,7 @@ const userData=useSelector((state)=>state.user.data)
        
 
         <Stack justifyContent="center">
-          <Typography>{userData.username}</Typography>
+          <Typography>{userData?.username}</Typography>
         </Stack>
       </Stack>
       {data.map((el, i) => (

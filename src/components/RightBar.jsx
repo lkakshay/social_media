@@ -6,7 +6,7 @@ export const RightBar = () => {
   return (
     <Container disableGutters>
       <Routes>
-        <Route path="/profile/:username" element={<Bio />} />
+        <Route path="/profile/:username" element={<Bio/>} />
       </Routes>
     </Container>
   );

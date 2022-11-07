@@ -15,6 +15,7 @@ export const Bio = () => {
   const Bio = useSelector((state) => state.profile.data);
   const client = useSelector((state) => state.user.data);
 
+
   const dispatch = useDispatch();
 
   const [editStatus, setEditStatus] = useState(false);
@@ -47,10 +48,10 @@ export const Bio = () => {
       {!editStatus ? (
         <Box>
           <Container disableGutters sx={{ width: "80%" }}>
-            {Bio.imgUrl?
+            {Bio?.imgUrl?
             <img
               style={{ width: "100%", aspectRatio: 1 / 1, borderRadius: "50%" }}
-              src={Bio.imgUrl}
+              src={Bio?.imgUrl}
               alt='profile pic'
             />:<img  src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' 
             alt="no profile pic" style={{ width: "100%", aspectRatio: 1 / 1, borderRadius: "50%" }}/>}
@@ -62,7 +63,7 @@ export const Bio = () => {
             gutterBottom
             align="center"
           >
-            {Bio.user_id?.username}
+            {Bio?.user_id?.username}
           </Typography>
           <Typography
             sx={{ mt: 1, fontSize: "15px" }}
