@@ -2,20 +2,41 @@ import { PostView } from "../components/postView";
 import { Bio } from "../components/bio";
 import { Container } from "@mui/system";
 import { CreatePostInitialize } from "../components/addPostshow";
-import {  useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getProfilePosts } from "../Redux/reducers/profileReducer";
+import { Box } from "@mui/material";
 
 export const Profile = () => {
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+
+  const loading = useSelector((state) => state.profile.loading);
+  
+
+  const load = () => {
+    setPage(page + 1);
+  };
 
   const client = useSelector((state) => state.user.data);
   const { username } = useParams();
-  const dispatch=useDispatch()
-  const data=useSelector((state) => state.profile.posts)
-  useEffect(()=>{
-   dispatch(getProfilePosts(username)) 
-  },[username])
+  const dispatch = useDispatch();
+  const {posts,totalpages} = useSelector((state) => state.profile);
+
+
+  useEffect(() => {
+    dispatch(getProfilePosts({ username, page }));
+  }, [username, page]);
+
+
+  useEffect(() => {
+    console.log(page,totalpages)
+    if(page>=totalpages)
+    setHasMore(false)
+  }, [totalpages,page]);
+ 
+ 
   return (
     <Container disableGutters>
       <Container
@@ -38,10 +59,10 @@ export const Profile = () => {
         }}
         disableGutters
       >
-      {client.username===username? <CreatePostInitialize />:<></>}
+        {client.username === username ? <CreatePostInitialize /> : <></>}
       </Container>
-
-      <PostView posts={data} />
+      <PostView hasMore={hasMore}  loading={loading} load={load} posts={posts} />
+      <Box sx={{height:'40px'}}/>
     </Container>
   );
 };

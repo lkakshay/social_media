@@ -7,9 +7,11 @@ import WhatshotIcon from '@mui/icons-material/Whatshot';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 export const BottomBar = () => {
   const [value, setValue] = useState("/");
   const navigate=useNavigate()
+  const user=useSelector((state)=>state.user.data)
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -37,7 +39,7 @@ export const BottomBar = () => {
         />
         
         <BottomNavigationAction
-          value="/profile/lk"
+          value={/profile/+user?.username}
           icon={<AccountCircleRoundedIcon fontSize="large" />}
         />
       </BottomNavigation>

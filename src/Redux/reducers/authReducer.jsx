@@ -15,8 +15,10 @@ const postAuthData = createAsyncThunk("api/login", async (data) => {
 
 const createAuthData = createAsyncThunk("api/register", async (data) => {
   return onSignUpAPI(data)
+
     .then((res) => {
-      return { token: res.token, msg: "success" };
+      console.log(res)
+      return { token: res.token, status:200,msg: "success" };
     })
     .catch((res) => {
       console.log("res", res);
@@ -50,9 +52,10 @@ const authInfoSlice = createSlice({
       state.isLoading = true;
     },
     [createAuthData.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
-      state.authStatus = true;
-      state.token = payload.token;
+      if (payload.status === 200) {
+        state.authStatus = true;
+        state.token = payload.token;
+      }
     },
     [createAuthData.rejected]: (state) => {
       state.isLoading = false;
@@ -62,7 +65,6 @@ const authInfoSlice = createSlice({
     },
     [postAuthData.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-
       if (payload.status === 200) {
         state.authStatus = true;
         state.token = payload.token;

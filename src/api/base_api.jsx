@@ -2,6 +2,7 @@ import axios from "axios";
 const baseURL = process.env.REACT_APP_BASE_URL;
 const key = process.env.REACT_APP_LOCALSTORAGE_KEY;
 
+
 export const getToken = async () => {
   const res = await JSON.parse(localStorage.getItem(key));
   if (res.auth.token) return res.auth.token;
