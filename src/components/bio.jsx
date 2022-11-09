@@ -1,4 +1,4 @@
-import {  Box, Button, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { TextField, IconButton } from "@mui/material";
@@ -8,13 +8,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getProfileData } from "../Redux/reducers/profileReducer";
 import { useParams } from "react-router-dom";
-import { editProfileDataAPI } from "../api/apiCalls/profileApis";
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import {
+  editProfileDataAPI,
+  followUserAPI,
+  unFollowUserAPI,
+} from "../api/apiCalls/profileApis";
 import { getClientData } from "../Redux/reducers/userReducer";
 
 export const Bio = () => {
   const Bio = useSelector((state) => state.profile.data);
   const client = useSelector((state) => state.user.data);
 
+  const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -24,21 +30,29 @@ export const Bio = () => {
 
   const { username } = useParams();
 
-  const posteditBio=()=>{
-   
+  const posteditBio = () => {
     const formData = new FormData();
-    if (edit.image!== undefined) formData.append("image", edit.image);
+    if (edit.image !== undefined) formData.append("image", edit.image);
 
     if (edit.about.length > 0) formData.append("about", edit.about);
 
-    editProfileDataAPI(formData)
-    .then(()=>{
-      setEditStatus(false)
-      dispatch(getProfileData(username))
-      dispatch(getClientData())
-    })
+    editProfileDataAPI(formData).then(() => {
+      setEditStatus(false);
+      dispatch(getProfileData(username));
+      dispatch(getClientData());
+    });
+  };
 
-  }
+  const follow = () => {
+    followUserAPI(Bio.user_id._id).then(() =>
+      dispatch(getProfileData(username))
+    );
+  };
+  const unfollow = () => {
+    unFollowUserAPI(Bio.user_id._id).then(() =>
+      dispatch(getProfileData(username)).then(() => setOpen(false))
+    );
+  };
 
   useEffect(() => {
     dispatch(getProfileData(username));
@@ -48,13 +62,27 @@ export const Bio = () => {
       {!editStatus ? (
         <Box>
           <Container disableGutters sx={{ width: "80%" }}>
-            {Bio?.imgUrl?
-            <img
-              style={{ width: "100%", aspectRatio: 1 / 1, borderRadius: "50%" }}
-              src={Bio?.imgUrl}
-              alt='profile pic'
-            />:<img  src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' 
-            alt="no profile pic" style={{ width: "100%", aspectRatio: 1 / 1, borderRadius: "50%" }}/>}
+            {Bio?.imgUrl ? (
+              <img
+                style={{
+                  width: "100%",
+                  aspectRatio: 1 / 1,
+                  borderRadius: "50%",
+                }}
+                src={Bio?.imgUrl}
+                alt="profile pic"
+              />
+            ) : (
+              <img
+                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                alt="no profile pic"
+                style={{
+                  width: "100%",
+                  aspectRatio: 1 / 1,
+                  borderRadius: "50%",
+                }}
+              />
+            )}
           </Container>
 
           <Typography
@@ -85,8 +113,8 @@ export const Bio = () => {
                 variant="text"
                 size="medium"
                 onClick={() => {
-                  setEditStatus(true)
-                  setEdit({about:Bio.about})
+                  setEditStatus(true);
+                  setEdit({ about: Bio.about });
                 }}
               >
                 <ModeEditOutlineOutlinedIcon fontSize="small" />
@@ -94,7 +122,71 @@ export const Bio = () => {
               </Button>
             </Stack>
           ) : (
-            <></>
+            <Stack
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              spacing={3}
+              sx={{ mt: 2 }}
+            >
+              {Bio?.following ? (
+                <>
+                  {!open ? (
+                    <Button
+                      sx={{ width: "80%",fontWeight:900 }}
+                      size="medium"
+                      color="success"
+                      variant="contained"
+                      onClick={() => setOpen(true)}
+                    >
+                      following
+                      < CheckCircleRoundedIcon sx={{ml:1}} />
+                    </Button>
+                  ) : (
+                    <Stack
+                      direction="column"
+                      justifyContent="center"
+                      alignItems="center"
+                      spacing={1}
+                      sx={{ width: "100%", mt: 2 }}
+                    >
+                      <Button
+                        sx={{ width: "80%" }}
+                        size="medium"
+                        color="error"
+                        variant="contained"
+                        onClick={unfollow}
+                      >
+                        unfollow
+                      </Button>
+                      <Button
+                        sx={{ width: "80%" }}
+                        size="medium"
+                        color="success"
+                        variant="outlined"
+                        onClick={() => setOpen(false)}
+                      >
+                        back
+                      </Button>
+                    </Stack>
+                  )}
+                </>
+              ) : (
+                <Button
+                  sx={{ width: "80%" }}
+                  size="medium"
+                  color="success"
+                  variant="outlined"
+                  onClick={follow}
+                >
+                  follow
+                </Button>
+              )}
+
+              <Button size="medium" color="success" variant="outlined">
+                message
+              </Button>
+            </Stack>
           )}
         </Box>
       ) : (

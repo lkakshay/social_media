@@ -36,9 +36,9 @@ const userData=useSelector((state)=>state.user.data)
         direction="row"
         gap={1}
         sx={{ border: ".1px solid black", mb: 1, p: 1 }}
-        onClick={()=>navigate('/profile/'+userData.username)}
+        onClick={()=>navigate('/profile/'+userData?.username)}
       >
-        {userData.profilePic?<Avatar src={userData.profilePic} />:<Avatar />}
+        {userData?.profilePic?<Avatar src={userData?.profilePic} />:<Avatar />}
        
 
         <Stack justifyContent="center">

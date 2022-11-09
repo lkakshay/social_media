@@ -4,9 +4,18 @@ const key = process.env.REACT_APP_LOCALSTORAGE_KEY;
 
 
 export const getToken = async () => {
-  const res = await JSON.parse(localStorage.getItem(key));
-  if (res.auth.token) return res.auth.token;
-  else return "undefined";
+
+  try {
+    const token = localStorage.getItem(key);
+    // console.log('token',token);
+    if (token === null) {
+      return "undefined";
+    }
+    return JSON.parse(token);
+  } catch (err) {
+    // console.log('err',err);
+    return "undefined";
+  }
 };
 
 const base = async (options) => {
@@ -22,7 +31,7 @@ const base = async (options) => {
     });
     return res.data;
   } catch (error) {
-    console.log(error?.response, "api base error");
+    // console.log(error?.response, "api base error");
     throw error?.response;
   }
 };

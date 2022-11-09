@@ -9,3 +9,9 @@ export const getProfileDataAPI = async (name) => {
 export const editProfileDataAPI = async (data) => {
   return await patch("profile/bio",data);
 };
+export const followUserAPI = async (userId) => {
+  return await post("profile/follow/"+userId);
+};
+export const unFollowUserAPI = async (userId) => {
+  return await del("profile/follow/"+userId);
+};

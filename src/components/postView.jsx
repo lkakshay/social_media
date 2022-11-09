@@ -4,6 +4,8 @@ import { Pagination } from "./pagination";
 import { PostCard } from "./postCard";
 
 export const PostView = ({ posts, load, loading, hasMore }) => {
+
+
   return (
     <Container disableGutters sx={{ mt: 2 }}>
       {posts?.map((e) => {

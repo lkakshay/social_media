@@ -11,7 +11,7 @@ export const CreatePostInitialize = () => {
   return (
     <Container disableGutters sx={{ border: ".1px solid black", p: 2 }}>
       <Stack justifyContent="space-between" gap={2} direction="row">
-      {userData.profilePic?<Avatar sx={{mt:1}} src={userData.profilePic} />:<Avatar sx={{mt:1}} />}
+      {userData?.profilePic?<Avatar sx={{mt:1}} src={userData.profilePic} />:<Avatar sx={{mt:1}} />}
         <TextField
           fullWidth
           multiline

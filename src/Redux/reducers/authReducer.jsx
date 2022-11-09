@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { onSignUpAPI, onLoginAPI } from "../../api/apiCalls/authApis";
+import {
+  onSignUpAPI,
+  onLoginAPI,
+  checkUserAPI,
+} from "../../api/apiCalls/authApis";
 
 const postAuthData = createAsyncThunk("api/login", async (data) => {
   return onLoginAPI(data)
@@ -15,10 +19,9 @@ const postAuthData = createAsyncThunk("api/login", async (data) => {
 
 const createAuthData = createAsyncThunk("api/register", async (data) => {
   return onSignUpAPI(data)
-
     .then((res) => {
-      console.log(res)
-      return { token: res.token, status:200,msg: "success" };
+      console.log(res);
+      return { token: res.token, status: 200, msg: "success" };
     })
     .catch((res) => {
       console.log("res", res);
@@ -29,6 +32,17 @@ const createAuthData = createAsyncThunk("api/register", async (data) => {
         return { msg: `invalid ${res.data.error.param}` };
       }
       return;
+    });
+});
+
+const checkUser = createAsyncThunk("api/checkuser", async (data) => {
+  return checkUserAPI()
+    .then((res) => {
+      return res;
+    })
+    .catch(() => {
+      const payload = { status: 401 };
+      return payload;
     });
 });
 
@@ -64,6 +78,8 @@ const authInfoSlice = createSlice({
       state.isLoading = true;
     },
     [postAuthData.fulfilled]: (state, { payload }) => {
+
+      
       state.isLoading = false;
       if (payload.status === 200) {
         state.authStatus = true;
@@ -73,8 +89,17 @@ const authInfoSlice = createSlice({
     [postAuthData.rejected]: (state) => {
       state.isLoading = false;
     },
+    [checkUser.fulfilled]: (state, { payload }) => {
+      if (payload.status === 200) {
+        state.authStatus = true;
+        state.token = payload.token;
+      }
+    },
+    [checkUser.rejected]: (state) => {
+      state.authStatus = false;
+    },
   },
 });
 export const { logout } = authInfoSlice.actions;
-export { postAuthData, createAuthData };
+export { postAuthData, createAuthData, checkUser };
 export default authInfoSlice.reducer;

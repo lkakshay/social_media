@@ -4,33 +4,52 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
+import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Badge, Box, CardMedia, Container } from "@mui/material";
-import WhatshotRoundedIcon from "@mui/icons-material/WhatshotRounded";
+import { Badge, Box, CardMedia, Checkbox, Container } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShareRoundedIcon from "@mui/icons-material/ShareRounded";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import ReactMarkdown from "https://esm.sh/react-markdown@7?bundle";
 import remarkGfm from "remark-gfm";
 import { useEffect, useState } from "react";
+import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
+import { likePostAPI, unLikePostAPI } from "../api/apiCalls/postApis";
 
 export const PostCard = ({ data }) => {
+
   TimeAgo.addLocale(en);
   const timeAgo = new TimeAgo("en-US");
-  const [height,setHeight]=useState(null)
+  const [height, setHeight] = useState(null);
+  const [liked,setLiked]=useState(false)
 
   const handleExpandClick = () => {};
 
-useEffect(()=>{
-  if(data.imgUrl)
-  setHeight('100px')
 
-  else{
-    setHeight('300px')
+  const handleLike=(bool)=>{
+    if(bool){
+      likePostAPI(data._id)
+      .then(()=>setLiked(true))
+      
+    }
+    else{
+      unLikePostAPI(data._id)
+      .then(()=>setLiked(false))
+    }
   }
-},[data])
+
+  useEffect(() => {
+    if (data.imgUrl) setHeight("100px");
+    else {
+      setHeight("300px");
+    }
+
+    console.log('data',data);
+     setLiked(data.liked)
+
+  }, [data]);
 
   return (
     <Container disableGutters maxWidth="100">
@@ -39,12 +58,11 @@ useEffect(()=>{
         sx={{
           maxWidth: "100%",
           borderRadius: "0px",
-           borderTop:'.1px solid black',
-           borderLeft:'.1px solid black',
-           borderRight:'.1px solid black',
-          mb:2,
-          boxShadow:'none'
-          
+          borderTop: ".1px solid black",
+          borderLeft: ".1px solid black",
+          borderRight: ".1px solid black",
+          mb: 2,
+          boxShadow: "none",
         }}
       >
         <CardHeader
@@ -75,21 +93,22 @@ useEffect(()=>{
           <></>
         )}
 
-        
-        <CardContent sx={{maxHeight:height,overflow:'hidden',mb:1}}>
+        <CardContent sx={{ maxHeight: height, overflow: "hidden", mb: 1 }}>
           <ReactMarkdown children={data?.content} remarkPlugins={[remarkGfm]} />
         </CardContent>
         <CardActions>
-          <Badge sx={{ mr: 2 }} size="small">
-            <WhatshotRoundedIcon sx={{ color: "#cccccc" }} fontSize="large" />
-          </Badge>
-          <Badge>
-            <ForumRoundedIcon fontSize="large" />
-          </Badge>
+          <Checkbox
+            checked={liked}
+            icon={<FavoriteBorderIcon fontSize="large" />}
+            checkedIcon={
+              <FavoriteIcon sx={{ color: "green" }} fontSize="large" />
+            }
+
+            onChange={(e)=>handleLike(e.target.checked)}
+          />
+          <ForumOutlinedIcon sx={{ ml: 1 }} fontSize="large" />
           <Box sx={{ marginLeft: "auto", mr: 1 }} onClick={handleExpandClick}>
-            <Badge>
-              <ShareRoundedIcon fontSize="large" />
-            </Badge>
+            <BookmarkBorderOutlinedIcon fontSize="large" />
           </Box>
         </CardActions>
       </Card>

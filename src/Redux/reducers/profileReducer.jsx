@@ -6,6 +6,7 @@ import { CollectionsOutlined } from "@mui/icons-material";
 const getProfileData = createAsyncThunk("api/profile/bio", async (name) => {
   return getProfileDataAPI(name)
     .then((res) => {
+      
       return res;
     })
     .catch((res) => {});
@@ -13,7 +14,6 @@ const getProfileData = createAsyncThunk("api/profile/bio", async (name) => {
 const getProfilePosts = createAsyncThunk(
   "api/profile/posts",
   async ({ username, page }) => {
-    console.log("page", page);
     return getPostsByUserAPI(username, page)
       .then((res) => {
         return { res, page };
@@ -40,7 +40,6 @@ const profileInfoSlice = createSlice({
       state.loading = true;
     },
     [getProfilePosts.fulfilled]: (state, { payload }) => {
-      console.log('payload.page',payload.page);
       if(payload.page>1){
         return {
           ...state,
@@ -51,7 +50,6 @@ const profileInfoSlice = createSlice({
 
       else{
 
-        console.log('res',payload.res);
         state.loading=false
         state.posts=payload.res.posts
         state.totalpages=payload.res.totalpages
@@ -59,7 +57,7 @@ const profileInfoSlice = createSlice({
       
     },
     [getProfilePosts.rejected]: (state) => {
-      state.loading = false;
+      // state.loading = false;
     },
   },
 });

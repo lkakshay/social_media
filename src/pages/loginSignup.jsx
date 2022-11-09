@@ -1,17 +1,19 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Container, Grid, TextField } from "@mui/material";
 import { createAuthData, postAuthData } from "../Redux/reducers/authReducer";
 import Alert from "@mui/material/Alert";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const LoginSignup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const authStatus=useSelector((state)=>state.auth.authStatus)
 
+const location=useLocation()
   const [user, setUser] = useState(false);
 
   //sign up
@@ -89,6 +91,20 @@ export const LoginSignup = () => {
     setSignUpvalidation({ ...signUpvalidation, show: false });
     setLoginValidation({ ...loginValidation, show: false });
   }, [signUpData, loginData]);
+
+
+  useEffect(() => {
+    if(authStatus){
+      const path=location.state?.location?.pathname
+      if(path)
+       navigate(path)
+
+    }
+  }, [authStatus]);
+
+
+
+
   return (
     <Container disableGutters maxWidth="xs" sx={style}>
       {user ? (

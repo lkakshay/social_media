@@ -6,3 +6,10 @@ export const addPostAPI = async (data) => {
 export const getPostsByUserAPI = async (username,page) => {
   return await get("post/"+username+'/'+page);
 };
+export const likePostAPI = async (post_id) => {
+  return await post("post/like/"+post_id);
+};
+export const unLikePostAPI = async (post_id) => {
+  return await del("post/like/"+post_id);
+};
+

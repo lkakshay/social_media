@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { Container } from "@mui/system";
 import { CreatePost } from "../components/createPost";
 import { HomeHeaderSmallScreen } from "../components/homebarMobile";
@@ -12,6 +13,7 @@ export const AddPost = () => {
         <HomeHeaderSmallScreen extra={<></>} />
       </Container>
       <CreatePost />
+      < Box sx={{height:'60px'}}/>
     </Container>
   );
 };

@@ -23,6 +23,7 @@ export const Profile = () => {
   const { username } = useParams();
   const dispatch = useDispatch();
   const {posts,totalpages} = useSelector((state) => state.profile);
+  // console.log('toatalpages',posts);
 
 
   useEffect(() => {
@@ -31,8 +32,7 @@ export const Profile = () => {
 
 
   useEffect(() => {
-    console.log(page,totalpages)
-    if(page>=totalpages)
+    if(page===totalpages)
     setHasMore(false)
   }, [totalpages,page]);
  
@@ -59,7 +59,7 @@ export const Profile = () => {
         }}
         disableGutters
       >
-        {client.username === username ? <CreatePostInitialize /> : <></>}
+        {client?.username === username ? <CreatePostInitialize /> : <></>}
       </Container>
       <PostView hasMore={hasMore}  loading={loading} load={load} posts={posts} />
       <Box sx={{height:'40px'}}/>
