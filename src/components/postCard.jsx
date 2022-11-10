@@ -46,9 +46,7 @@ export const PostCard = ({ data }) => {
       setHeight("300px");
     }
 
-    console.log('data',data);
-     setLiked(data.liked)
-
+    setLiked(data.isLiked)
   }, [data]);
 
   return (

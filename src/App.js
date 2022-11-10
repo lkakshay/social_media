@@ -7,9 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 function App() {
-
- const a= useSelector((s)=>s.auth.authStatus)
-
   const dispatch=useDispatch()
   useEffect(()=>{
     dispatch(checkUser())

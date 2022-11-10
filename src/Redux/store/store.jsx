@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../reducers/authReducer";
 import userReducer from "../reducers/userReducer";
 import profileReducer from "../reducers/profileReducer";
+import PostReducer from "../reducers/PostReducer";
 const key = process.env.REACT_APP_LOCALSTORAGE_KEY;
 
 const localStorageMiddleware = () => 
@@ -31,6 +32,7 @@ export const store = configureStore({
     auth: authReducer,
     user: userReducer,
     profile: profileReducer,
+    post:PostReducer
   },
   preloadedState:reHydrateStore(),
 

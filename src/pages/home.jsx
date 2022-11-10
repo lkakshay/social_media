@@ -1,16 +1,43 @@
 import { PostView } from "../components/postView";
 import { HomeHeaderSmallScreen } from "../components/homebarMobile";
-import { Container } from "@mui/material";
+import { CircularProgress, Container, Stack } from "@mui/material";
 import { CreatePost } from "../components/createPost";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import { useNavigate } from "react-router-dom";
 import {IconButton} from "@mui/material";
 import { CreatePostInitialize } from "../components/addPostshow";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getHomePostData } from "../Redux/reducers/PostReducer";
 
 
 export const Home = () => {
-
+  const dispatch = useDispatch();
   const navigate=useNavigate()
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const { home, totalpages,isLoading } = useSelector((state) => state.post);
+
+
+  const load = () => {
+    setPage(page + 1);
+  };
+
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  };
+
+  console.log('home',home);
+
+
+  useEffect(() => {
+    dispatch(getHomePostData(page));
+    
+  }, [page]);
+  useEffect(() => {
+    if (page === totalpages) setHasMore(false);
+  }, [totalpages, page]);
   return (
     <Container disableGutters >
       <Container
@@ -44,7 +71,15 @@ export const Home = () => {
         <CreatePostInitialize />
       </Container>
 
-      <PostView />
+
+        <PostView
+          hasMore={hasMore}
+          loadtext="load more"
+          loading={isLoading}
+          load={load}
+          posts={home}
+          scrollTop={scrollTop}
+        />
     </Container>
   );
 };

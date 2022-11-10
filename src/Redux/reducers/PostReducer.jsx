@@ -1,78 +1,84 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { onSignUpAPI, onLoginAPI } from "../../api/apiCalls/authApis";
+import { getHomePostsAPI, getPostsAPI } from "../../api/apiCalls/postApis";
 
-const postAuthData = createAsyncThunk("api/login", async (data) => {
-  return onLoginAPI(data)
+const getPostData = createAsyncThunk("api/post/explore", async () => {
+  return getPostsAPI()
     .then((res) => {
-      res.status = 200;
       return res;
     })
-    .catch(() => {
-      const payload = { status: 401 };
-      return payload;
-    });
+    .catch(() => {});
 });
 
-const createAuthData = createAsyncThunk("api/register", async (data) => {
-  return onSignUpAPI(data)
+const getHomePostData = createAsyncThunk("api/post/home", async (page) => {
+  return getHomePostsAPI(page)
     .then((res) => {
-      return { token: res.token, msg: "success" };
+      return { res, page };
     })
-    .catch((res) => {
-      console.log("res", res);
-      if (("err", res.status === 422)) {
-        if (res.data.error.msg === "user already exist")
-          return { msg: "user already exist" };
+    .catch((res) => {});
+}
+);
 
-        return { msg: `invalid ${res.data.error.param}` };
-      }
-      return;
-    });
-});
+// const createAuthData = createAsyncThunk("api/register", async (data) => {
+//   return onSignUpAPI(data)
+//     .then((res) => {
+//       return { token: res.token, msg: "success" };
+//     })
+//     .catch((res) => {
+//       console.log("res", res);
+//       if (("err", res.status === 422)) {
+//         if (res.data.error.msg === "user already exist")
+//           return { msg: "user already exist" };
 
-const authInfoSlice = createSlice({
+//         return { msg: `invalid ${res.data.error.param}` };
+//       }
+//       return;
+//     });
+// });
+
+const postInfoSlice = createSlice({
   name: "post",
   initialState: {
-    authStatus: false,
+    explore: [],
     isLoading: false,
-    isError: false,
-    token: null,
-  },
-  reducers: {
-    logout: (state) => {
-      state.authStatus = false;
-      state.token = null;
-    },
+    home:[],
+    totalpages:0
   },
 
   extraReducers: {
-    [createAuthData.pending]: (state) => {
+    [getPostData.pending]: (state) => {
       state.isLoading = true;
     },
-    [createAuthData.fulfilled]: (state, { payload }) => {
+    [getPostData.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.authStatus = true;
-      state.token = payload.token;
+      state.explore = payload;
     },
-    [createAuthData.rejected]: (state) => {
+    [getPostData.rejected]: (state) => {
       state.isLoading = false;
     },
-    [postAuthData.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [postAuthData.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
 
-      if (payload.status === 200) {
-        state.authStatus = true;
-        state.token = payload.token;
+
+    [getHomePostData.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getHomePostData.fulfilled]: (state, { payload }) => {
+      if(payload.page>1){
+        return {
+          ...state,
+          home: [...state.home, ...payload.res.posts],
+          isLoading:false
+        };
+      }
+      else{
+        console.log('payload[0]',payload.res.posts[0]);
+        state.isLoading=false
+        state.posts=payload.res.posts
+        state.totalpages=payload.res.totalPages
       }
     },
-    [postAuthData.rejected]: (state) => {
+    [getHomePostData.rejected]: (state) => {
       state.isLoading = false;
     },
   },
 });
-export const { logout } = authInfoSlice.actions;
-export { postAuthData, createAuthData };
-export default authInfoSlice.reducer;
+export { getPostData,getHomePostData};
+export default postInfoSlice.reducer;

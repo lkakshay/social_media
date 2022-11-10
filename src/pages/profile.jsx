@@ -11,32 +11,29 @@ import { Box } from "@mui/material";
 export const Profile = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const client = useSelector((state) => state.user.data);
+  const { username } = useParams();
+  const dispatch = useDispatch();
+  const { posts, totalpages, loading } = useSelector((state) => state.profile);
 
-  const loading = useSelector((state) => state.profile.loading);
-  
 
   const load = () => {
     setPage(page + 1);
   };
 
-  const client = useSelector((state) => state.user.data);
-  const { username } = useParams();
-  const dispatch = useDispatch();
-  const {posts,totalpages} = useSelector((state) => state.profile);
-  // console.log('toatalpages',posts);
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  };
 
 
   useEffect(() => {
     dispatch(getProfilePosts({ username, page }));
   }, [username, page]);
 
-
   useEffect(() => {
-    if(page===totalpages)
-    setHasMore(false)
-  }, [totalpages,page]);
- 
- 
+    if (page === totalpages) setHasMore(false);
+  }, [totalpages, page]);
+
   return (
     <Container disableGutters>
       <Container
@@ -61,8 +58,15 @@ export const Profile = () => {
       >
         {client?.username === username ? <CreatePostInitialize /> : <></>}
       </Container>
-      <PostView hasMore={hasMore}  loading={loading} load={load} posts={posts} />
-      <Box sx={{height:'40px'}}/>
+      <PostView
+        hasMore={hasMore}
+        loadtext="load more"
+        loading={loading}
+        load={load}
+        posts={posts}
+        scrollTop={scrollTop}
+      />
+      <Box sx={{ height: "40px" }} />
     </Container>
   );
 };

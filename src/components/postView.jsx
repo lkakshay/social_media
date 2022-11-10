@@ -1,10 +1,9 @@
-import { Alert, CircularProgress, Container } from "@mui/material";
+import { Alert, Button, CircularProgress, Container } from "@mui/material";
 import { Stack } from "@mui/system";
 import { Pagination } from "./pagination";
 import { PostCard } from "./postCard";
 
-export const PostView = ({ posts, load, loading, hasMore }) => {
-
+export const PostView = ({ posts,scrollTop, loadtext,load, loading, hasMore }) => {
 
   return (
     <Container disableGutters sx={{ mt: 2 }}>
@@ -15,12 +14,13 @@ export const PostView = ({ posts, load, loading, hasMore }) => {
       {!loading ? (
         <>
           {hasMore ? (
-            <Pagination load={load} />
+            <Pagination loadtext={loadtext} load={load} />
           ) : (
-            <Stack direction="row" justifyContent="center" alignItems="center">
+            <Stack direction="column" justifyContent="center" alignItems="center" spacing={1}>
             <Alert sx={{color:'green'}} severity="success" variant="outlined">
              All posts have been viewed
             </Alert>
+            <Button onClick={scrollTop} color='success' >back to top</Button>
             </Stack>
           )}
         </>
