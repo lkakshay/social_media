@@ -28,7 +28,7 @@ const profileInfoSlice = createSlice({
     data: {},
     posts: [],
     loading: false,
-    totalpages:0
+    totalPages:0
   },
 
   extraReducers: {
@@ -49,10 +49,11 @@ const profileInfoSlice = createSlice({
       }
 
       else{
+        
 
         state.loading=false
         state.posts=payload.res.posts
-        state.totalpages=payload.res.totalpages
+        state.totalPages=payload.res.totalPages
       }
       
     },

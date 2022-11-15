@@ -17,7 +17,7 @@ export const Home = () => {
   const navigate=useNavigate()
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const { home, totalpages,isLoading } = useSelector((state) => state.post);
+  const { home, totalPages,isLoading } = useSelector((state) => state.post);
 
 
   const load = () => {
@@ -36,8 +36,8 @@ export const Home = () => {
     
   }, [page]);
   useEffect(() => {
-    if (page === totalpages) setHasMore(false);
-  }, [totalpages, page]);
+    if (page === totalPages) setHasMore(false);
+  }, [totalPages, page]);
   return (
     <Container disableGutters >
       <Container

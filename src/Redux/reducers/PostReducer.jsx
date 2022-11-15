@@ -41,7 +41,7 @@ const postInfoSlice = createSlice({
     explore: [],
     isLoading: false,
     home:[],
-    totalpages:0
+    totalPages:0
   },
 
   extraReducers: {
@@ -69,10 +69,9 @@ const postInfoSlice = createSlice({
         };
       }
       else{
-        console.log('payload[0]',payload.res.posts[0]);
         state.isLoading=false
-        state.posts=payload.res.posts
-        state.totalpages=payload.res.totalPages
+        state.home=payload.res.posts
+        state.totalPages=payload.res.totalPages
       }
     },
     [getHomePostData.rejected]: (state) => {

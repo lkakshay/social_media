@@ -17,31 +17,36 @@ import remarkGfm from "remark-gfm";
 import { useEffect, useState } from "react";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import { likePostAPI, unLikePostAPI } from "../api/apiCalls/postApis";
+import { useNavigate } from "react-router-dom";
 
 export const PostCard = ({ data }) => {
 
+  const navigate=useNavigate()
   TimeAgo.addLocale(en);
   const timeAgo = new TimeAgo("en-US");
   const [height, setHeight] = useState(null);
   const [liked,setLiked]=useState(false)
 
-  const handleExpandClick = () => {};
+  const toProfile = () => {
+    navigate('/profile/'+data.username)
+
+  };
 
 
   const handleLike=(bool)=>{
     if(bool){
-      likePostAPI(data._id)
+      likePostAPI(data.post._id)
       .then(()=>setLiked(true))
       
     }
     else{
-      unLikePostAPI(data._id)
+      unLikePostAPI(data.post._id)
       .then(()=>setLiked(false))
     }
   }
 
   useEffect(() => {
-    if (data.imgUrl) setHeight("100px");
+    if (data.post?.imgUrl) setHeight("100px");
     else {
       setHeight("300px");
     }
@@ -64,9 +69,10 @@ export const PostCard = ({ data }) => {
         }}
       >
         <CardHeader
+        onClick={toProfile}
           avatar={
             data?.profilePic ? (
-              <Avatar sx={{ mt: 1 }} src={data?.profilePic} />
+              <Avatar sx={{ mt: 1 }} src={data?.profilePic}  />
             ) : (
               <Avatar sx={{ mt: 1 }} />
             )
@@ -77,14 +83,14 @@ export const PostCard = ({ data }) => {
             </IconButton>
           }
           title={data?.username}
-          subheader={timeAgo.format(new Date(data?.updatedAt))}
+          subheader={timeAgo.format(new Date(data?.post?.updatedAt))}
         />
 
-        {data?.imgUrl ? (
+        {data?.post?.imgUrl ? (
           <CardMedia
             sx={{ width: "100%", padding: "0% 2%" }}
             component="img"
-            image={data?.imgUrl}
+            image={data?.post?.imgUrl}
             alt="post pic"
           />
         ) : (
@@ -92,7 +98,7 @@ export const PostCard = ({ data }) => {
         )}
 
         <CardContent sx={{ maxHeight: height, overflow: "hidden", mb: 1 }}>
-          <ReactMarkdown children={data?.content} remarkPlugins={[remarkGfm]} />
+          <ReactMarkdown children={data?.post?.content} remarkPlugins={[remarkGfm]} />
         </CardContent>
         <CardActions>
           <Checkbox
@@ -105,7 +111,7 @@ export const PostCard = ({ data }) => {
             onChange={(e)=>handleLike(e.target.checked)}
           />
           <ForumOutlinedIcon sx={{ ml: 1 }} fontSize="large" />
-          <Box sx={{ marginLeft: "auto", mr: 1 }} onClick={handleExpandClick}>
+          <Box sx={{ marginLeft: "auto", mr: 1 }} >
             <BookmarkBorderOutlinedIcon fontSize="large" />
           </Box>
         </CardActions>

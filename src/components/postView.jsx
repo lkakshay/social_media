@@ -8,7 +8,7 @@ export const PostView = ({ posts,scrollTop, loadtext,load, loading, hasMore }) =
   return (
     <Container disableGutters sx={{ mt: 2 }}>
       {posts?.map((e) => {
-        return <PostCard data={e} key={e._id} />;
+        return <PostCard data={e} key={e.post._id} />;
       })}
 
       {!loading ? (

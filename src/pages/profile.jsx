@@ -14,7 +14,8 @@ export const Profile = () => {
   const client = useSelector((state) => state.user.data);
   const { username } = useParams();
   const dispatch = useDispatch();
-  const { posts, totalpages, loading } = useSelector((state) => state.profile);
+  const { posts, totalPages, loading } = useSelector((state) => state.profile);
+  console.log('totalPages',totalPages);
 
 
   const load = () => {
@@ -31,8 +32,8 @@ export const Profile = () => {
   }, [username, page]);
 
   useEffect(() => {
-    if (page === totalpages) setHasMore(false);
-  }, [totalpages, page]);
+    if (page === totalPages) setHasMore(false);
+  }, [totalPages,page]);
 
   return (
     <Container disableGutters>
