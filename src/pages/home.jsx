@@ -1,6 +1,6 @@
 import { PostView } from "../components/postView";
 import { HomeHeaderSmallScreen } from "../components/homebarMobile";
-import { CircularProgress, Container, Stack } from "@mui/material";
+import { Box, CircularProgress, Container, Stack } from "@mui/material";
 import { CreatePost } from "../components/createPost";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import { useNavigate } from "react-router-dom";
@@ -27,8 +27,6 @@ export const Home = () => {
   const scrollTop = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
-
-  console.log('home',home);
 
 
   useEffect(() => {
@@ -80,6 +78,8 @@ export const Home = () => {
           posts={home}
           scrollTop={scrollTop}
         />
+
+    <Box sx={{ height: "40px" }} />
     </Container>
   );
 };

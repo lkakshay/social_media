@@ -15,8 +15,6 @@ export const Profile = () => {
   const { username } = useParams();
   const dispatch = useDispatch();
   const { posts, totalPages, loading } = useSelector((state) => state.profile);
-  console.log('totalPages',totalPages);
-
 
   const load = () => {
     setPage(page + 1);

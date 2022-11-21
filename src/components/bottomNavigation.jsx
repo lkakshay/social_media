@@ -31,7 +31,7 @@ export const BottomBar = () => {
         />
         <BottomNavigationAction
           value="/explore"
-          icon={<WhatshotIcon fontSize="large" />}
+          icon={<TravelExploreIcon fontSize="large" />}
         />
         <BottomNavigationAction
           value="/search"

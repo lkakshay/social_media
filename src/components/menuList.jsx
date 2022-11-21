@@ -14,11 +14,12 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
+import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 const data = [
-  { nav:'/explore',name: "Explore", item: <WhatshotIcon fontSize="large" /> },
+  { nav:'/explore',name: "Explore", item: <TravelExploreIcon fontSize="large" /> },
   { nav:'/addpost',name: "Post ", item: <AddCircleRoundedIcon fontSize="large" /> },
   { nav:'/chat',name: "Chat", item: <ChatIcon fontSize="large" /> },
   { nav:'/frnds',name: "Friends", item: <PeopleAltRoundedIcon fontSize="large" /> },
