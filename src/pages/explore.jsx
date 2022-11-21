@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { HomeHeaderSmallScreen } from "../components/homebarMobile";
 import { PostView } from "../components/postView";
 import { getPostData } from "../Redux/reducers/PostReducer";
-import { socket } from "../utils/Helpers/socketHelper";
+
 
 
 export const Explore = () => {
