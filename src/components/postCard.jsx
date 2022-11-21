@@ -12,7 +12,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShareRoundedIcon from "@mui/icons-material/ShareRounded";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
-import ReactMarkdown from "https://esm.sh/react-markdown@7?bundle";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import remarkGfm from "remark-gfm";
 import { useEffect, useState } from "react";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
